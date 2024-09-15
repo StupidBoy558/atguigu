@@ -1,7 +1,12 @@
 package com.atguigu.service;
 
 import com.atguigu.entity.PaymentType;
+import com.atguigu.params.paymentType.*;
+import com.atguigu.vo.paymentType.PaymentTypeListVo;
+import com.atguigu.vo.paymentType.PaymentTypeSearchVo;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
 * @author wf_wj
@@ -10,4 +15,44 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface PaymentTypeService extends IService<PaymentType> {
 
+    /**
+     * 获取支付方式列表
+     * @return
+     */
+    List<PaymentTypeListVo> listPaymentType();
+
+    /**
+     * 保存或更新支付方式
+     * @param param
+     */
+    Boolean saveOrUpdatePaymentType(PaymentTypeSaveOrUpdateParam param);
+
+    /**
+     * 新增支付方式
+     *
+     * @param param
+     * @return
+     */
+    Boolean savePaymentType(PaymentTypeSaveParam param);
+
+    /**
+     * 更新支付方式
+     * @param param
+     * @return
+     */
+    Boolean updatePaymentType(PaymentTypeUpdateParam param);
+
+    /**
+     * 删除支付方式
+     * @param param
+     * @return
+     */
+    Boolean deletePaymentById(PaymentTypeDeleteParam param);
+
+    /**
+     * 根据id获取支付方式
+     * @param param
+     * @return
+     */
+    PaymentTypeSearchVo getPaymentTypeById(PaymentTypeSearchParam param);
 }
