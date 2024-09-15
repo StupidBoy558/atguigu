@@ -1,4 +1,4 @@
-package com.atguigu.common.result;
+package com.atguigu.result;
 
 import lombok.Data;
 
@@ -22,8 +22,9 @@ public class ResponseData<T> {
 
     private static <T> ResponseData<T> build(T data) {
         ResponseData<T> responseData = new ResponseData<>();
-        if (data != null)
+        if (data != null) {
             responseData.setData(data);
+        }
         return responseData;
     }
 
