@@ -1,28 +1,22 @@
 package com.atguigu.vo.paymentType;
 
 import com.atguigu.vo.BaseVo;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
 
 /**
  * @Description:TODO
  * @Author: dansheng
  * @CreateTime: 2024/9/15
  **/
-@Schema(name = "PaymentTypeVo", description = "查询全部支付方式响应体")
+
+@Schema(description = "支付类型查询响应体")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentTypeVo extends BaseVo {
-
-    @Schema(description = "主键")
-    @JsonProperty("id")
-    private Long id;
+public class PaymentTypeSearchVo extends BaseVo {
 
     @Schema(description = "付款方式名称")
     private String name;
@@ -32,6 +26,5 @@ public class PaymentTypeVo extends BaseVo {
 
     @Schema(description = "付费说明")
     private String additionalInfo;
-
 
 }

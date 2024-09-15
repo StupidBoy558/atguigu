@@ -4,7 +4,8 @@ import com.atguigu.params.paymentType.*;
 import com.atguigu.result.ResponseData;
 
 import com.atguigu.service.PaymentTypeService;
-import com.atguigu.vo.paymentType.PaymentTypeVo;
+import com.atguigu.vo.paymentType.PaymentTypeListVo;
+import com.atguigu.vo.paymentType.PaymentTypeSearchVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -32,9 +33,18 @@ public class PaymentTypeController {
 
     private final PaymentTypeService paymentTypeService;
 
+    @Operation(summary = "根据id查询支付方式")
+    @PostMapping("/getPaymentTypeById")
+    public ResponseData<PaymentTypeSearchVo> getPaymentTypeById(@RequestBody @Validated PaymentTypeSearchParam param) {
+        log.info("根据id查询支付方式请求体：{}", param);
+
+        return ResponseData.ok(paymentTypeService.getPaymentTypeById(param));
+    }
+
+
     @Operation(summary = "查询全部支付方式列表")
     @PostMapping("/listPaymentType")
-    public ResponseData<List<PaymentTypeVo>> listPaymentType(@RequestBody @Validated PaymentTypeListParam param) {
+    public ResponseData<List<PaymentTypeListVo>> listPaymentType(@RequestBody @Validated PaymentTypeListParam param) {
 
         log.info("查询全部支付方式请求体：{}", param);
 

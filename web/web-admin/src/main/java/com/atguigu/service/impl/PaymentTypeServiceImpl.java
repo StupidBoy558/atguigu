@@ -2,12 +2,10 @@ package com.atguigu.service.impl;
 
 import com.atguigu.entity.PaymentType;
 import com.atguigu.mapper.PaymentTypeMapper;
-import com.atguigu.params.paymentType.PaymentTypeDeleteParam;
-import com.atguigu.params.paymentType.PaymentTypeSaveOrUpdateParam;
-import com.atguigu.params.paymentType.PaymentTypeSaveParam;
-import com.atguigu.params.paymentType.PaymentTypeUpdateParam;
+import com.atguigu.params.paymentType.*;
 import com.atguigu.service.PaymentTypeService;
-import com.atguigu.vo.paymentType.PaymentTypeVo;
+import com.atguigu.vo.paymentType.PaymentTypeListVo;
+import com.atguigu.vo.paymentType.PaymentTypeSearchVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -31,20 +29,20 @@ public class PaymentTypeServiceImpl extends ServiceImpl<PaymentTypeMapper, Payme
     private final PaymentTypeMapper paymentTypeMapper;
 
     @Override
-    public List<PaymentTypeVo> listPaymentType() {
+    public List<PaymentTypeListVo> listPaymentType() {
 
         // 1. 查询所有支付方式
         LambdaQueryWrapper<PaymentType> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(PaymentType::getIsDeleted, 0);
-        List<PaymentType> paymentTypes = paymentTypeMapper.selectList(null);
+        List<PaymentType> paymentTypes = paymentTypeMapper.selectList(queryWrapper);
 
         // 2. 转换为Vo
 
         return paymentTypes.stream()
             .map(paymentType -> {
-                PaymentTypeVo paymentTypeVo = new PaymentTypeVo();
-                BeanUtils.copyProperties(paymentType, paymentTypeVo);
-                return paymentTypeVo;
+                PaymentTypeListVo paymentTypeListVo = new PaymentTypeListVo();
+                BeanUtils.copyProperties(paymentType, paymentTypeListVo);
+                return paymentTypeListVo;
             })
             .collect(Collectors.toList());
 
@@ -53,12 +51,22 @@ public class PaymentTypeServiceImpl extends ServiceImpl<PaymentTypeMapper, Payme
     @Override
     public Boolean saveOrUpdatePaymentType(PaymentTypeSaveOrUpdateParam param) {
 
-        // 1. 判断是新增还是修改
         PaymentType paymentType = new PaymentType();
 
+        // 2. 判断是新增还是修改
+        if (param.getId() == null) {
+            // 新增
+            BeanUtils.copyProperties(param, paymentType);
+            paymentType.setIsDeleted((byte) 0);
+            paymentType.setCreateTime(new Date());
+            return this.save(paymentType);
+        } else {
+            // 修改
+            BeanUtils.copyProperties(param, paymentType);
+            paymentType.setUpdateTime(new Date());
+            return this.updateById(paymentType);
+        }
 
-
-        return null;
     }
 
     @Override
@@ -91,6 +99,33 @@ public class PaymentTypeServiceImpl extends ServiceImpl<PaymentTypeMapper, Payme
     @Override
     public Boolean deletePaymentById(PaymentTypeDeleteParam param) {
 
+        // 如果id为空，返回false
+        if (param.getId() == null) {
+            return false;
+        }
+
+        // 删除
+        return this.removeById(param.getId());
+    }
+
+    @Override
+    public PaymentTypeSearchVo getPaymentTypeById(PaymentTypeSearchParam param) {
+
+        // 如果id为空，返回null
+        if (param.getId() == null) {
+            return null;
+        }
+
+        // 查询
+        LambdaQueryWrapper<PaymentType> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(PaymentType::getId, param.getId()).eq(PaymentType::getIsDeleted, 0);
+        PaymentType paymentType = this.getOne(queryWrapper);
+
+        if (paymentType != null) {
+            PaymentTypeSearchVo paymentTypeSearchVo = new PaymentTypeSearchVo();
+            BeanUtils.copyProperties(paymentType, paymentTypeSearchVo);
+            return paymentTypeSearchVo;
+        }
 
         return null;
     }
