@@ -1,7 +1,13 @@
 package com.atguigu.service;
 
 import com.atguigu.entity.LeaseTerm;
+import com.atguigu.params.leaseTerm.LeaseTermDeleteParam;
+import com.atguigu.params.leaseTerm.LeaseTermListParam;
+import com.atguigu.params.leaseTerm.LeaseTermSaveParam;
+import com.atguigu.params.leaseTerm.LeaseTermUpdateParam;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
 * @author wf_wj
@@ -10,4 +16,31 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface LeaseTermService extends IService<LeaseTerm> {
 
+    /**
+     * 查询全部租期列表
+     * @param param
+     * @return
+     */
+    List<LeaseTerm> listLeaseTerm(LeaseTermListParam param);
+
+    /**
+     * 新增租期
+     * @param param
+     * @return
+     */
+    String addLeaseTerm(LeaseTermSaveParam param);
+
+    /**
+     * 修改租期
+     * @param param
+     * @return
+     */
+    Boolean updateLeaseTerm(LeaseTermUpdateParam param);
+
+    /**
+     * 删除租期
+     * @param param
+     * @return
+     */
+    Boolean deleteLeaseTerm(LeaseTermDeleteParam param);
 }
