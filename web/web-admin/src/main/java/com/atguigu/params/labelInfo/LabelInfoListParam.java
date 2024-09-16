@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Author: dansheng
 @CreateTime: 2024/9/16
 **/
-
+@Schema(description = "按类型查询标签类型请求体")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

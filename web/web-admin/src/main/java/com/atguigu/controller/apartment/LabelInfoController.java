@@ -1,8 +1,10 @@
 package com.atguigu.controller.apartment;
 
 import com.atguigu.entity.LabelInfo;
+import com.atguigu.params.labelInfo.LabelInfoDeleteParam;
 import com.atguigu.params.labelInfo.LabelInfoListParam;
 import com.atguigu.params.labelInfo.LabelInfoSaveParam;
+import com.atguigu.params.labelInfo.LabelInfoUpdateParam;
 import com.atguigu.result.ResponseData;
 import com.atguigu.service.LabelInfoService;
 import com.atguigu.vo.labelInfo.LabelInfoListVo;
@@ -49,20 +51,15 @@ public class LabelInfoController {
 
     @Operation(summary = "更新标签")
     @PostMapping("/updateLabel")
-    public ResponseData<String> updateLabel() {
-        return null;
+    public ResponseData<Boolean> updateLabel(@RequestBody @Validated LabelInfoUpdateParam param) {
+        return ResponseData.ok(labelInfoService.updateLabel(param));
     }
 
     @Operation(summary = "删除标签")
     @PostMapping("/deleteLabel")
-    public ResponseData<String> deleteLabel() {
-        return null;
+    public ResponseData<Boolean> deleteLabel(@RequestBody @Validated LabelInfoDeleteParam param) {
+        return ResponseData.ok(labelInfoService.deleteLabel(param));
     }
 
-    @Operation(summary = "查询标签详情")
-    @PostMapping("/labelDetail")
-    public ResponseData<LabelInfo> labelDetail() {
-        return null;
-    }
 
 }

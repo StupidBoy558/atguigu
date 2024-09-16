@@ -1,6 +1,8 @@
 package com.atguigu.entity;
 
 import com.atguigu.enums.ItemType;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.v3.oas.annotations.media.Schema;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -12,6 +14,9 @@ import lombok.Data;
 public class LabelInfo extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
+
+    @TableId(type = IdType.AUTO)
+    private Long id;
 
     @Schema(description = "类型")
     @TableField(value = "type")
