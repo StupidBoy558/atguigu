@@ -10,6 +10,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * @Description:TODO
+ * @Author: dansheng
+ * @CreateTime: 2024/9/15
+ **/
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -23,4 +30,7 @@ public class GlobalExceptionHandler {
         });
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
+
+
+
 }
