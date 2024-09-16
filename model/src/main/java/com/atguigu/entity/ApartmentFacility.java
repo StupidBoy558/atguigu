@@ -1,26 +1,51 @@
 package com.atguigu.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
+import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
-@Schema(description = "公寓&配套关系")
-@TableName(value = "apartment_facility")
+/**
+ * 公寓&配套关联表
+ * @TableName apartment_facility
+ */
+@TableName(value ="apartment_facility")
 @Data
-@Builder
-public class ApartmentFacility extends BaseEntity {
+public class ApartmentFacility implements Serializable {
+    /**
+     * 
+     */
+    @TableId(type = IdType.AUTO)
+    private Long id;
 
-    private static final long serialVersionUID = 1L;
-
-    @Schema(description = "公寓id")
-    @TableField(value = "apartment_id")
+    /**
+     * 公寓id
+     */
     private Long apartmentId;
 
-    @Schema(description = "设施id")
-    @TableField(value = "facility_id")
+    /**
+     * 设施id
+     */
     private Long facilityId;
 
+    /**
+     * 创建时间
+     */
+    private Date createTime;
 
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
+
+    /**
+     * 是否删除
+     */
+    private Integer isDeleted;
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 }

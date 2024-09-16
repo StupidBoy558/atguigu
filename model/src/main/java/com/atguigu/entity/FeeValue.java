@@ -1,27 +1,56 @@
 package com.atguigu.entity;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
-@Schema(description = "杂项费用值表")
-@TableName(value = "fee_value")
+/**
+ * 杂项费用值表
+ * @TableName fee_value
+ */
+@TableName(value ="fee_value")
 @Data
-public class FeeValue extends BaseEntity {
+public class FeeValue implements Serializable {
+    /**
+     * 
+     */
+    @TableId(type = IdType.AUTO)
+    private Long id;
 
-    private static final long serialVersionUID = 1L;
-
-    @Schema(description = "费用value")
-    @TableField(value = "name")
+    /**
+     * 费用value
+     */
     private String name;
 
-    @Schema(description = "收费单位")
-    @TableField(value = "unit")
+    /**
+     * 收费单位
+     */
     private String unit;
 
-    @Schema(description = "费用所对的fee_key编码")
-    @TableField(value = "fee_key_id")
+    /**
+     * 费用所对的fee_key
+     */
     private Long feeKeyId;
 
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
+
+    /**
+     * 是否删除
+     */
+    private Integer isDeleted;
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 }

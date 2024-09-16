@@ -1,32 +1,61 @@
 package com.atguigu.entity;
 
-import com.atguigu.enums.ItemType;
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.*;
+import java.io.Serializable;
+import java.util.Date;
+import lombok.Data;
 
-@Schema(description = "图片信息表")
-@TableName(value = "graph_info")
+/**
+ * 图片信息表
+ * @TableName graph_info
+ */
+@TableName(value ="graph_info")
 @Data
-public class GraphInfo extends BaseEntity {
+public class GraphInfo implements Serializable {
+    /**
+     * 图片id
+     */
+    @TableId(type = IdType.AUTO)
+    private Long id;
 
-    private static final long serialVersionUID = 1L;
-
-    @Schema(description = "图片名称")
-    @TableField(value = "name")
+    /**
+     * 图片名称
+     */
     private String name;
 
-    @Schema(description = "图片所属对象类型")
-    @TableField(value = "item_type")
-    private ItemType itemType;
+    /**
+     * 图片所属对象类型（1:apartment,2:room）
+     */
+    private Integer itemType;
 
-    @Schema(description = "图片所有对象id")
-    @TableField(value = "item_id")
+    /**
+     * 图片所有对象id
+     */
     private Long itemId;
 
-    @Schema(description = "图片地址")
-    @TableField(value = "url")
+    /**
+     * 图片地址
+     */
     private String url;
 
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
+
+    /**
+     * 是否删除
+     */
+    private Integer isDeleted;
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 }
