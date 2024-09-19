@@ -15,6 +15,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Knife4jConfiguration {
 
+    /**
+     * 配置文档信息.
+     * @return OpenAPI
+     */
     @Bean
     public OpenAPI customOpenAPI() {
 
@@ -25,6 +29,10 @@ public class Knife4jConfiguration {
                         .description("后台管理系统API"));
     }
 
+    /**
+     * 配置分组.
+     * @return GroupedOpenApi
+     */
     @Bean
     public GroupedOpenApi systemAPI() {
 
@@ -35,6 +43,10 @@ public class Knife4jConfiguration {
                 build();
     }
 
+    /**
+     * 配置分组.
+     * @return GroupedOpenApi
+     */
     @Bean
     public GroupedOpenApi loginAPI() {
 
@@ -63,12 +75,13 @@ public class Knife4jConfiguration {
                         "/admin/file/**"
                 ).build();
     }
+
     @Bean
     public GroupedOpenApi leaseAPI() {
-        return GroupedOpenApi.builder().group("租赁信息管理").
-                pathsToMatch(
-                        "/admin/appointment/**",
-                        "/admin/agreement/**"
+        return GroupedOpenApi.builder().group("租赁信息管理")
+            .pathsToMatch(
+            "/admin/appointment/**",
+            "/admin/agreement/**"
                 ).build();
     }
     @Bean
