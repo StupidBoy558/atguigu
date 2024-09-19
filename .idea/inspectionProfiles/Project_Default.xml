@@ -20,7 +20,7 @@
     <inspection_tool class="AlibabaTransactionMustHaveRollback" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="AlibabaUseRightCaseForDateFormat" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="JavadocDeclaration" enabled="true" level="WARNING" enabled_by_default="true">
-      <option name="ADDITIONAL_TAGS" value="CreateTime:,Author:,Description:TODO" />
+      <option name="ADDITIONAL_TAGS" value="CreateTime:,Author:,Description:TODO,description,createDate,Entity,CreateDate,entity,Entity:,Description:" />
     </inspection_tool>
   </profile>
 </component>

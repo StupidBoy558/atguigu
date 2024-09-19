@@ -3,12 +3,14 @@ package com.atguigu.mapper;
 import com.atguigu.entity.ApartmentFacility;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+
 /**
-* @author wf_wj
-* @description 针对表【apartment_facility(公寓&配套关联表)】的数据库操作Mapper
-* @createDate 2024-09-16 22:26:49
-* @Entity com.atguigu.entity.ApartmentFacility
-*/
+ * Mapper interface for ApartmentFacility entity.
+ * Provides database operations for ApartmentFacility.
+ * @Author: dansheng
+ * @CreateTime: 2024/9/16
+ * @Entity: ApartmentFacility
+ */
 public interface ApartmentFacilityMapper extends BaseMapper<ApartmentFacility> {
 
 }
