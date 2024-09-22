@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * @Description:TODO
  * @Author: dansheng
@@ -18,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LeaseTermSaveParam {
+public class LeaseTermSaveParam implements Serializable {
 
     @NotNull(message = "租期月数不能为空")
     @Schema(description = "租期月数")

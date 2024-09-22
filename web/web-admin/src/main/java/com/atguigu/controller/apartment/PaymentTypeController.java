@@ -35,7 +35,7 @@ public class PaymentTypeController {
 
     @Operation(summary = "根据id查询支付方式")
     @PostMapping("/getPaymentTypeById")
-    public ResponseData<PaymentTypeSearchVo> getPaymentTypeById(@RequestBody @Validated PaymentTypeSearchParam param) {
+    public ResponseData<PaymentTypeSearchVo> getPaymentTypeById(@RequestBody @Validated PaymentTypeSearchParams param) {
         log.info("根据id查询支付方式请求体：{}", param);
 
         return ResponseData.ok(paymentTypeService.getPaymentTypeById(param));
@@ -44,7 +44,7 @@ public class PaymentTypeController {
 
     @Operation(summary = "查询全部支付方式列表")
     @PostMapping("/listPaymentType")
-    public ResponseData<List<PaymentTypeListVo>> listPaymentType(@RequestBody @Validated PaymentTypeListParam param) {
+    public ResponseData<List<PaymentTypeListVo>> listPaymentType(@RequestBody @Validated PaymentTypeListParams param) {
 
         log.info("查询全部支付方式请求体：{}", param);
 
@@ -63,7 +63,7 @@ public class PaymentTypeController {
 
     @Operation(summary = "保存支付方式")
     @PostMapping("/savePaymentType")
-    public ResponseData<Boolean> savePaymentType(@RequestBody @Validated PaymentTypeSaveParam param) {
+    public ResponseData<Boolean> savePaymentType(@RequestBody @Validated PaymentTypeSaveParams param) {
 
         log.info("保存支付方式请求体：{}", param);
 
@@ -72,7 +72,7 @@ public class PaymentTypeController {
 
     @Operation(summary = "更新支付方式")
     @PostMapping("/updatePaymentType")
-    public ResponseData<Boolean> updatePaymentType(@RequestBody @Validated PaymentTypeUpdateParam param) {
+    public ResponseData<Boolean> updatePaymentType(@RequestBody @Validated PaymentTypeUpdateParams param) {
 
         log.info("更新支付方式请求体：{}", param);
 
@@ -82,7 +82,7 @@ public class PaymentTypeController {
 
     @Operation(summary = "根据id删除支付方式")
     @PostMapping("/deletePaymentById")
-    public ResponseData<Boolean> deletePaymentById(@RequestBody @Validated PaymentTypeDeleteParam param) {
+    public ResponseData<Boolean> deletePaymentById(@RequestBody @Validated PaymentTypeDeleteParams param) {
         log.info("根据id删除支付方式请求体：{}", param);
 
         return ResponseData.ok(paymentTypeService.deletePaymentById(param));

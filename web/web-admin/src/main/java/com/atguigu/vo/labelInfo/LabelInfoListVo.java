@@ -2,6 +2,7 @@ package com.atguigu.vo.labelInfo;
 
 import com.atguigu.entity.LabelInfo;
 import com.atguigu.enums.ItemType;
+import com.atguigu.vo.BaseVo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class LabelInfoListVo {
+public class LabelInfoListVo extends BaseVo {
 
     @Schema(description = "类型")
     @JsonProperty("type")

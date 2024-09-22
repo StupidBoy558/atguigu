@@ -1,8 +1,9 @@
 package com.atguigu.params.paymentType;
 
-import com.atguigu.params.BaseParam;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * @Description:TODO
@@ -10,8 +11,8 @@ import lombok.Data;
  * @CreateTime: 2024/9/15
  **/
 @Data
-@Schema(name = "PaymentTypeListParam", description = "支付方式请求体")
-public class PaymentTypeListParam extends BaseParam {
+@Schema(name = "PaymentTypeListParams", description = "支付方式请求体")
+public class PaymentTypeListParams implements Serializable {
 
 
     @Schema(description = "付款方式名称")

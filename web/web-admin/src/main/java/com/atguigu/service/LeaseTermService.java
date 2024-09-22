@@ -2,7 +2,7 @@ package com.atguigu.service;
 
 import com.atguigu.entity.LeaseTerm;
 import com.atguigu.params.leaseTerm.LeaseTermDeleteParam;
-import com.atguigu.params.leaseTerm.LeaseTermListParam;
+import com.atguigu.params.leaseTerm.LeaseTermListParams;
 import com.atguigu.params.leaseTerm.LeaseTermSaveParam;
 import com.atguigu.params.leaseTerm.LeaseTermUpdateParam;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -21,7 +21,7 @@ public interface LeaseTermService extends IService<LeaseTerm> {
      * @param param
      * @return
      */
-    List<LeaseTerm> listLeaseTerm(LeaseTermListParam param);
+    List<LeaseTerm> listLeaseTerm(LeaseTermListParams param);
 
     /**
      * 新增租期

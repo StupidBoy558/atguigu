@@ -1,10 +1,12 @@
 package com.atguigu.params.labelInfo;
 
-import com.atguigu.enums.ItemType;
+import com.atguigu.vo.BaseVo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 /**
 @Description:TODO
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LabelInfoListParam {
+public class LabelInfoListParam extends BaseVo {
 
     @Schema(description = "类型")
     private String type;
