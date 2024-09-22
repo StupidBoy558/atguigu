@@ -1,6 +1,7 @@
 package com.atguigu.controller.apartment;
 
 
+import com.atguigu.params.facilityInfo.FacilityInfoDeleteParams;
 import com.atguigu.params.facilityInfo.FacilityInfoListParams;
 import com.atguigu.params.facilityInfo.FacilityInfoPageParams;
 import com.atguigu.params.facilityInfo.FacilityInfoParams;
@@ -78,6 +79,16 @@ public class FacilityController {
 
         log.info("新增或修改设施信息, param: {}", param);
         return ResponseData.ok(facilityService.saveOrUpdateFacility(param));
+    }
+
+
+    @Operation(summary = "根据id删除设施信息")
+    @PostMapping("/delete")
+    public ResponseData<Boolean> deleteFacility(
+            @RequestBody @Validated final FacilityInfoDeleteParams param) {
+
+        log.info("删除设施信息, param: {}", param);
+        return ResponseData.ok(facilityService.removeById(param.getId()));
     }
 
 

@@ -11,9 +11,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.atguigu.entity.FacilityInfo;
 import com.atguigu.service.FacilityInfoService;
 import com.atguigu.mapper.FacilityInfoMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+
 
 /**
 * @author: wf_wj
@@ -21,8 +24,8 @@ import java.util.List;
 * @createDate: 2024-09-16 22:26:48
 */
 @Service
-public class FacilityInfoServiceImpl extends ServiceImpl<FacilityInfoMapper, FacilityInfo>
-        implements FacilityInfoService {
+public class FacilityInfoServiceImpl extends ServiceImpl
+        <FacilityInfoMapper, FacilityInfo> implements FacilityInfoService {
 
     /**
      * 获取设施列表.
@@ -78,12 +81,35 @@ public class FacilityInfoServiceImpl extends ServiceImpl<FacilityInfoMapper, Fac
         return voPage;
     }
 
+    /**
+     * 保存或更新设施信息.
+     * @param param 保存或更新请求体
+     * @return 是否成功
+     */
     @Override
-    public Boolean saveOrUpdateFacility(FacilityInfoParams param) {
+    public Boolean saveOrUpdateFacility(final FacilityInfoParams param) {
 
+        // 判断参数中的id值是否为空
+        FacilityInfo facility = FacilityInfoParams.convertToEntity(param);
+        if (param.getId() == null) {
+            // 新增设施信息
+            facility.setCreateTime(new Date());
+            facility.setIsDeleted(0);
+            return this.save(facility);
+        }  else {
+            // 更新设施信息
+            FacilityInfo facilityInfoOld = this.getById(param.getId());
+            if (facilityInfoOld != null) {
+                BeanUtils.copyProperties(
+                        facility, facilityInfoOld,
+                        "id", "createTime", "isDeleted");
+                facilityInfoOld.setUpdateTime(new Date());
+                return this.updateById(facilityInfoOld);
+            } else {
+                return false;
+            }
+        }
 
-
-        return null;
     }
 }
 
