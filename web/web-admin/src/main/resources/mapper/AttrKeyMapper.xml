@@ -5,15 +5,38 @@
 <mapper namespace="com.atguigu.mapper.AttrKeyMapper">
 
     <resultMap id="BaseResultMap" type="com.atguigu.entity.AttrKey">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="name" column="name" jdbcType="VARCHAR"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,name,create_time,
+        id
+        ,name,create_time,
         update_time,is_deleted
     </sql>
+
+    <resultMap id="AttrKeyVoMap" type="com.atguigu.vo.attribute.AttrKeyListVo">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <collection property="attrValueListVo" ofType="com.atguigu.vo.attribute.AttrValueListVo">
+            <id property="id" column="attr_value_id" jdbcType="BIGINT"/>
+            <result property="name" column="attr_value_name" jdbcType="VARCHAR"/>
+            <result property="attrKeyId" column="attr_key_id" jdbcType="BIGINT"/>
+        </collection>
+    </resultMap>
+
+    <select id="listAttrInfo" resultMap="AttrKeyVoMap">
+        select k.id,
+               k.name,
+               v.id   as attr_value_id,
+               v.name as attr_value_name,
+               v.attr_key_id
+        from attr_key k
+                 left join attr_value v on k.id = v.attr_key_id and v.is_deleted = 0
+        where k.is_deleted = 0
+    </select>
+
 </mapper>

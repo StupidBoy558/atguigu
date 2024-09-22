@@ -1,57 +1,86 @@
 package com.atguigu.entity;
 
-
-import com.atguigu.enums.BaseStatus;
-import com.atguigu.enums.SystemUserType;
-import com.baomidou.mybatisplus.annotation.FieldStrategy;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
-@Schema(description = "员工信息")
-@TableName(value = "system_user")
+/**
+ * 员工信息表
+ * @TableName system_user
+ */
+@TableName(value ="system_user")
 @Data
-public class SystemUser extends BaseEntity {
+public class SystemUser implements Serializable {
+    /**
+     * 员工id
+     */
+    @TableId(type = IdType.AUTO)
+    private Long id;
 
-
-    private static final long serialVersionUID = 1L;
-
-    @Schema(description = "用户名")
-    @TableField(value = "username")
+    /**
+     * 用户名
+     */
     private String username;
 
-    @Schema(description = "密码")
-    @TableField(value = "password")
+    /**
+     * 密码
+     */
     private String password;
 
-    @Schema(description = "姓名")
-    @TableField(value = "name")
+    /**
+     * 姓名
+     */
     private String name;
 
-    @Schema(description = "用户类型")
-    @TableField(value = "type")
-    private SystemUserType type;
+    /**
+     * 用户类型
+     */
+    private Integer type;
 
-    @Schema(description = "手机号码")
-    @TableField(value = "phone")
+    /**
+     * 手机号码
+     */
     private String phone;
 
-    @Schema(description = "头像地址")
-    @TableField(value = "avatar_url")
+    /**
+     * 头像地址
+     */
     private String avatarUrl;
 
-    @Schema(description = "备注信息")
-    @TableField(value = "additional_info")
+    /**
+     * 备注信息
+     */
     private String additionalInfo;
 
-    @Schema(description = "岗位id")
-    @TableField(value = "post_id")
+    /**
+     * 岗位id
+     */
     private Long postId;
 
-    @Schema(description = "账号状态")
-    @TableField(value = "status")
-    private BaseStatus status;
+    /**
+     * 账号状态
+     */
+    private Integer status;
 
+    /**
+     * 创建时间
+     */
+    private Date createTime;
 
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
+
+    /**
+     * 是否删除
+     */
+    private Integer isDeleted;
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 }

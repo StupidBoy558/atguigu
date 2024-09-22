@@ -1,46 +1,76 @@
 package com.atguigu.entity;
 
-
-import com.atguigu.enums.AppointmentStatus;
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
-import java.util.Date;
-
-@Schema(description = "预约看房信息表")
-@TableName(value = "view_appointment")
+/**
+ * 预约看房信息表
+ * @TableName view_appointment
+ */
+@TableName(value ="view_appointment")
 @Data
-public class ViewAppointment extends BaseEntity {
+public class ViewAppointment implements Serializable {
+    /**
+     * 预约id
+     */
+    @TableId(type = IdType.AUTO)
+    private Long id;
 
-    private static final long serialVersionUID = 1L;
-
-    @Schema(description = "用户id")
-    @TableField(value = "user_id")
+    /**
+     * 用户id
+     */
     private Long userId;
 
-    @Schema(description = "用户姓名")
-    @TableField(value = "name")
+    /**
+     * 用户姓名
+     */
     private String name;
 
-    @Schema(description = "用户手机号码")
-    @TableField(value = "phone")
+    /**
+     * 用户手机号码
+     */
     private String phone;
 
-    @Schema(description = "公寓id")
-    @TableField(value = "apartment_id")
-    private Long apartmentId;
+    /**
+     * 公寓id
+     */
+    private Integer apartmentId;
 
-    @Schema(description = "预约时间")
-    @TableField(value = "appointment_time")
+    /**
+     * 预约时间
+     */
     private Date appointmentTime;
 
-    @Schema(description = "备注信息")
-    @TableField(value = "additional_info")
+    /**
+     * 备注信息
+     */
     private String additionalInfo;
 
-    @Schema(description = "预约状态")
-    @TableField(value = "appointment_status")
-    private AppointmentStatus appointmentStatus;
+    /**
+     * 预约状态（1:待看房，2:已取消，3已看房）
+     */
+    private Integer appointmentStatus;
+
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
+
+    /**
+     * 是否删除
+     */
+    private Integer isDeleted;
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 }

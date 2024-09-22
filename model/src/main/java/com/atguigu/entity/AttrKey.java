@@ -1,21 +1,46 @@
 package com.atguigu.entity;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
-import java.util.List;
-
-@Schema(description = "房间基本属性表")
-@TableName(value = "attr_key")
+/**
+ * 房间基本属性表
+ * @TableName attr_key
+ */
+@TableName(value ="attr_key")
 @Data
-public class AttrKey extends BaseEntity {
+public class AttrKey implements Serializable {
+    /**
+     * 
+     */
+    @TableId(type = IdType.AUTO)
+    private Long id;
 
-    private static final long serialVersionUID = 1L;
-
-    @Schema(description = "属性key")
-    @TableField(value = "name")
+    /**
+     * 属性key
+     */
     private String name;
 
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
+
+    /**
+     * 是否删除
+     */
+    private Integer isDeleted;
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 }
