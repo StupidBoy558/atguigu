@@ -70,7 +70,7 @@ public class PaymentTypeServiceImpl extends ServiceImpl<PaymentTypeMapper, Payme
     }
 
     @Override
-    public Boolean savePaymentType(PaymentTypeSaveParam param) {
+    public Boolean savePaymentType(PaymentTypeSaveParams param) {
 
         // 1. 将param转为实体
         PaymentType paymentType = new PaymentType();
@@ -84,7 +84,7 @@ public class PaymentTypeServiceImpl extends ServiceImpl<PaymentTypeMapper, Payme
     }
 
     @Override
-    public Boolean updatePaymentType(PaymentTypeUpdateParam param) {
+    public Boolean updatePaymentType(PaymentTypeUpdateParams param) {
 
         // 1. 将param转为实体
         PaymentType paymentType = new PaymentType();
@@ -97,7 +97,7 @@ public class PaymentTypeServiceImpl extends ServiceImpl<PaymentTypeMapper, Payme
     }
 
     @Override
-    public Boolean deletePaymentById(PaymentTypeDeleteParam param) {
+    public Boolean deletePaymentById(PaymentTypeDeleteParams param) {
 
         // 如果id为空，返回false
         if (param.getId() == null) {
@@ -109,7 +109,7 @@ public class PaymentTypeServiceImpl extends ServiceImpl<PaymentTypeMapper, Payme
     }
 
     @Override
-    public PaymentTypeSearchVo getPaymentTypeById(PaymentTypeSearchParam param) {
+    public PaymentTypeSearchVo getPaymentTypeById(PaymentTypeSearchParams param) {
 
         // 如果id为空，返回null
         if (param.getId() == null) {

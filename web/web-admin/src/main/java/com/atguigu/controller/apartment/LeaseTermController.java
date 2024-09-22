@@ -2,7 +2,7 @@ package com.atguigu.controller.apartment;
 
 import com.atguigu.entity.LeaseTerm;
 import com.atguigu.params.leaseTerm.LeaseTermDeleteParam;
-import com.atguigu.params.leaseTerm.LeaseTermListParam;
+import com.atguigu.params.leaseTerm.LeaseTermListParams;
 import com.atguigu.params.leaseTerm.LeaseTermSaveParam;
 import com.atguigu.params.leaseTerm.LeaseTermUpdateParam;
 import com.atguigu.result.ResponseData;
@@ -36,7 +36,7 @@ public class LeaseTermController {
     // 租期列表
     @Operation(summary = "查询全部租期列表")
     @PostMapping("/listLeaseTerm")
-    public ResponseData<List<LeaseTerm>> listLeaseTerm(@RequestBody LeaseTermListParam param) {
+    public ResponseData<List<LeaseTerm>> listLeaseTerm(@RequestBody LeaseTermListParams param) {
         return ResponseData.ok(leaseTermService.listLeaseTerm(param));
 
     }

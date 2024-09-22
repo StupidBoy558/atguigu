@@ -1,6 +1,6 @@
 package com.atguigu.controller.apartment;
 
-import com.atguigu.entity.LabelInfo;
+
 import com.atguigu.params.labelInfo.LabelInfoDeleteParam;
 import com.atguigu.params.labelInfo.LabelInfoListParam;
 import com.atguigu.params.labelInfo.LabelInfoSaveParam;
@@ -32,32 +32,59 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class LabelInfoController {
 
+    /**
+     * 标签信息服务.
+     */
     private final LabelInfoService labelInfoService;
 
+    /**
+     * 查询标签列表.
+     * @param param 查询参数
+     * @return 标签列表
+     */
     @Operation(summary = "（根据类型）查询标签列表")
     @PostMapping("/listByTypeLabel")
-    public ResponseData<List<LabelInfoListVo>> listByTypeLabel(@RequestBody @Validated LabelInfoListParam param) {
+    public ResponseData<List<LabelInfoListVo>> listByTypeLabel(
+            @RequestBody @Validated final LabelInfoListParam param) {
 
         log.info("查询标签列表请求体：{}", param);
         return ResponseData.ok(labelInfoService.listByTypeLabel(param));
     }
 
 
+    /**
+     * 新增标签.
+     * @param param 新增标签请求体
+     * @return 主键回显
+     */
     @Operation(summary = "新增标签")
     @PostMapping("/addLabel")
-    public ResponseData<String> addLabel(@RequestBody @Validated LabelInfoSaveParam param) {
+    public ResponseData<String> addLabel(
+            @RequestBody @Validated final LabelInfoSaveParam param) {
         return ResponseData.ok(labelInfoService.addLabel(param));
     }
 
+    /**
+     * 更新标签.
+     * @param param 更新标签请求体
+     * @return 是否更新成功
+     */
     @Operation(summary = "更新标签")
     @PostMapping("/updateLabel")
-    public ResponseData<Boolean> updateLabel(@RequestBody @Validated LabelInfoUpdateParam param) {
+    public ResponseData<Boolean> updateLabel(
+            @RequestBody @Validated final LabelInfoUpdateParam param) {
         return ResponseData.ok(labelInfoService.updateLabel(param));
     }
 
+    /**
+     * 删除标签.
+     * @param param 删除标签请求体
+     * @return 是否删除成功
+     */
     @Operation(summary = "删除标签")
     @PostMapping("/deleteLabel")
-    public ResponseData<Boolean> deleteLabel(@RequestBody @Validated LabelInfoDeleteParam param) {
+    public ResponseData<Boolean> deleteLabel(
+            @RequestBody @Validated final LabelInfoDeleteParam param) {
         return ResponseData.ok(labelInfoService.deleteLabel(param));
     }
 

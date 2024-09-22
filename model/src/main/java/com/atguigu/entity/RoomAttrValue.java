@@ -1,24 +1,51 @@
 package com.atguigu.entity;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Builder;
+import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
-@Schema(description = "房间&基本属性值关联表")
-@TableName(value = "room_attr_value")
+/**
+ * 房间&基本属性值关联表
+ * @TableName room_attr_value
+ */
+@TableName(value ="room_attr_value")
 @Data
-@Builder
-public class RoomAttrValue extends BaseEntity {
+public class RoomAttrValue implements Serializable {
+    /**
+     * 
+     */
+    @TableId(type = IdType.AUTO)
+    private Long id;
 
-    private static final long serialVersionUID = 1L;
-
-    @Schema(description = "房间id")
-    @TableField(value = "room_id")
+    /**
+     * 房间id
+     */
     private Long roomId;
 
-    @Schema(description = "属性值id")
-    @TableField(value = "attr_value_id")
+    /**
+     * 属性值id
+     */
     private Long attrValueId;
+
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
+
+    /**
+     * 是否删除
+     */
+    private Integer isDeleted;
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 }

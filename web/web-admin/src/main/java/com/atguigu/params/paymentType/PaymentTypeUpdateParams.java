@@ -1,6 +1,5 @@
 package com.atguigu.params.paymentType;
 
-import com.atguigu.params.BaseParam;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,16 +7,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * @Description:TODO
  * @Author: dansheng
  * @CreateTime: 2024/9/15
  **/
-@Schema(name = "PaymentTypeUpdateParam", description = "支付方式修改请求体")
+@Schema(name = "PaymentTypeUpdateParams", description = "支付方式修改请求体")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentTypeUpdateParam extends BaseParam {
+public class PaymentTypeUpdateParams implements Serializable {
 
     @NotNull(message = "支付方式id不能为空")
     @Schema(description = "支付方式id")

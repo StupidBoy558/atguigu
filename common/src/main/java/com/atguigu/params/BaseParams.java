@@ -8,10 +8,10 @@ package com.atguigu.params;
 
 import java.io.Serializable;
 
-public class BaseParam implements Serializable {
+public class BaseParams implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public BaseParam() {
+    public BaseParams() {
     }
 }

@@ -33,26 +33,26 @@ public interface PaymentTypeService extends IService<PaymentType> {
      * @param param
      * @return
      */
-    Boolean savePaymentType(PaymentTypeSaveParam param);
+    Boolean savePaymentType(PaymentTypeSaveParams param);
 
     /**
      * 更新支付方式
      * @param param
      * @return
      */
-    Boolean updatePaymentType(PaymentTypeUpdateParam param);
+    Boolean updatePaymentType(PaymentTypeUpdateParams param);
 
     /**
      * 删除支付方式
      * @param param
      * @return
      */
-    Boolean deletePaymentById(PaymentTypeDeleteParam param);
+    Boolean deletePaymentById(PaymentTypeDeleteParams param);
 
     /**
      * 根据id获取支付方式
      * @param param
      * @return
      */
-    PaymentTypeSearchVo getPaymentTypeById(PaymentTypeSearchParam param);
+    PaymentTypeSearchVo getPaymentTypeById(PaymentTypeSearchParams param);
 }

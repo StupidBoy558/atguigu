@@ -1,38 +1,61 @@
 package com.atguigu.entity;
 
-
-import com.atguigu.enums.BaseStatus;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
 /**
  * 岗位信息表
- *
  * @TableName system_post
  */
-@TableName(value = "system_post")
+@TableName(value ="system_post")
 @Data
-public class SystemPost extends BaseEntity {
+public class SystemPost implements Serializable {
+    /**
+     * 岗位ID
+     */
+    @TableId(type = IdType.AUTO)
+    private Long id;
 
-    private static final long serialVersionUID = 1L;
+    /**
+     * 岗位编码
+     */
+    private String code;
 
-    @Schema(description = "岗位编码")
-    @TableField(value = "code")
-    private String postCode;
-
-    @Schema(description = "岗位名称")
-    @TableField(value = "name")
+    /**
+     * 岗位名称
+     */
     private String name;
 
-    @Schema(description = "岗位描述信息")
-    @TableField(value = "description")
+    /**
+     * 描述
+     */
     private String description;
 
-    @Schema(description = "岗位状态")
-    @TableField(value = "status")
-    private BaseStatus status;
+    /**
+     * 状态（1正常 0停用）
+     */
+    private Integer status;
 
+    /**
+     * 
+     */
+    private Date createTime;
 
+    /**
+     * 
+     */
+    private Date updateTime;
+
+    /**
+     * 删除标记（0:可用 1:已删除）
+     */
+    private Integer isDeleted;
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 }

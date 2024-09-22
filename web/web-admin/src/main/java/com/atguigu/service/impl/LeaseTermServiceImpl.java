@@ -3,7 +3,7 @@ package com.atguigu.service.impl;
 import com.atguigu.entity.LeaseTerm;
 import com.atguigu.mapper.LeaseTermMapper;
 import com.atguigu.params.leaseTerm.LeaseTermDeleteParam;
-import com.atguigu.params.leaseTerm.LeaseTermListParam;
+import com.atguigu.params.leaseTerm.LeaseTermListParams;
 import com.atguigu.params.leaseTerm.LeaseTermSaveParam;
 import com.atguigu.params.leaseTerm.LeaseTermUpdateParam;
 import com.atguigu.service.LeaseTermService;
@@ -25,7 +25,7 @@ public class LeaseTermServiceImpl extends ServiceImpl<LeaseTermMapper, LeaseTerm
     implements LeaseTermService{
 
     @Override
-    public List<LeaseTerm> listLeaseTerm(LeaseTermListParam param) {
+    public List<LeaseTerm> listLeaseTerm(LeaseTermListParams param) {
 
         LambdaQueryWrapper<LeaseTerm> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(LeaseTerm::getIsDeleted, 0);

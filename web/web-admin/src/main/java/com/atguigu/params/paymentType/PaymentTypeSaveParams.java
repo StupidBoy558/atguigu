@@ -1,22 +1,23 @@
 package com.atguigu.params.paymentType;
 
-import com.atguigu.params.BaseParam;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * @Description:TODO
  * @Author: dansheng
  * @CreateTime: 2024/9/15
  **/
-@Schema(name = "PaymentTypeSaveParam", description = "新增支付方式请求体")
+@Schema(name = "PaymentTypeSaveParams", description = "新增支付方式请求体")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentTypeSaveParam extends BaseParam {
+public class PaymentTypeSaveParams implements Serializable {
 
     @NotBlank(message = "付款方式名称不能为空")
     @Schema(description = "付款方式名称")
