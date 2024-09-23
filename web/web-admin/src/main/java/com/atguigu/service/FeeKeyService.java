@@ -1,6 +1,7 @@
 package com.atguigu.service;
 
 import com.atguigu.entity.FeeKey;
+import com.atguigu.params.fees.FeeKeySaveOrUpdateParams;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -10,4 +11,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface FeeKeyService extends IService<FeeKey> {
 
+    /**
+     * 保存或更新费用key.
+     * @param params 保存或更新杂费key.
+     * @return 是否成功.
+     */
+    Boolean saveOrUpdateFeeKey(FeeKeySaveOrUpdateParams params);
 }
