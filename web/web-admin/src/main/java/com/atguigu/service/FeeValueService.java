@@ -1,6 +1,7 @@
 package com.atguigu.service;
 
 import com.atguigu.entity.FeeValue;
+import com.atguigu.params.fees.FeeValueSaveOrUpdateParams;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -10,4 +11,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface FeeValueService extends IService<FeeValue> {
 
+    /**
+     * 保存或更新杂费值
+     * @param params 杂费值保存或更新参数
+     * @return 是否成功
+     */
+    Boolean saveOrUpdateFeeValue(FeeValueSaveOrUpdateParams params);
 }

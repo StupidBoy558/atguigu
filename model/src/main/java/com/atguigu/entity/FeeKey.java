@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 public class FeeKey implements Serializable {
     /**
-     * 
+     * id.
      */
     @TableId(type = IdType.AUTO)
     private Long id;
