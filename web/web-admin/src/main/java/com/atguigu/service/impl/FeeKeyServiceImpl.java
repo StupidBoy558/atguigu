@@ -1,24 +1,43 @@
 package com.atguigu.service.impl;
 
+import com.atguigu.entity.FeeValue;
+import com.atguigu.params.fees.FeeKeyDeleteParams;
 import com.atguigu.params.fees.FeeKeySaveOrUpdateParams;
+import com.atguigu.service.FeeValueService;
+import com.atguigu.vo.fees.FeeKeyListVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.atguigu.entity.FeeKey;
 import com.atguigu.service.FeeKeyService;
 import com.atguigu.mapper.FeeKeyMapper;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
 * @author wf_wj
-* @description 针对表【fee_key(杂项费用名称表)】的数据库操作Service实现
-* @createDate 2024-09-16 22:26:48
+* @description: 针对表【fee_key(杂项费用名称表)】的数据库操作Service实现
+* @createDate: 2024-09-16 22:26:48
 */
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class FeeKeyServiceImpl extends ServiceImpl<FeeKeyMapper, FeeKey>
-    implements FeeKeyService{
+    implements FeeKeyService {
+
+    /**
+     * 费用keyMapper.
+     */
+    private final FeeKeyMapper feeKeyMapper;
+
+    /**
+     * 费用valueMapper.
+     */
+    private final FeeValueService feeValueService;
 
     /**
      * 保存或更新费用key.
@@ -39,9 +58,9 @@ public class FeeKeyServiceImpl extends ServiceImpl<FeeKeyMapper, FeeKey>
             return this.save(entity);
         } else {
             // 修改
-            LambdaQueryWrapper<FeeKey> queryWrapper = new LambdaQueryWrapper<>();
-            queryWrapper.eq(FeeKey::getId, params.getId());
-            FeeKey feeKeyOld = this.getOne(queryWrapper);
+            LambdaQueryWrapper<FeeKey> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(FeeKey::getId, params.getId());
+            FeeKey feeKeyOld = this.getOne(wrapper);
 
             if (feeKeyOld == null) {
                 return false;
@@ -53,6 +72,36 @@ public class FeeKeyServiceImpl extends ServiceImpl<FeeKeyMapper, FeeKey>
 
         }
 
+    }
+
+    /**
+     * 获取费用key列表.
+     * @return 费用key列表.
+     */
+    @Override
+    public List<FeeKeyListVo> feeInfoList() {
+
+        log.info("feeInfoList: ");
+        return feeKeyMapper.feeInfoList();
+    }
+
+    /**
+     * 删除费用key.
+     * @param params 删除费用key请求体
+     * @return 是否成功.
+     */
+    @Override
+    public Boolean deleteFeeKeyById(final FeeKeyDeleteParams params) {
+
+        // 根据id删除key
+        boolean keyResult = this.removeById(params.getId());
+
+        // 根据id值删除对应的value属性
+        LambdaQueryWrapper<FeeValue> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(FeeValue::getFeeKeyId, params.getId());
+        boolean valueResult = feeValueService.remove(queryWrapper);
+
+        return keyResult && valueResult;
     }
 }
 

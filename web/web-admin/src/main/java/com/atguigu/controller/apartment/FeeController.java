@@ -1,6 +1,9 @@
 package com.atguigu.controller.apartment;
 
-import com.atguigu.params.fees.*;
+import com.atguigu.params.fees.FeeKeyDeleteParams;
+import com.atguigu.params.fees.FeeKeySaveOrUpdateParams;
+import com.atguigu.params.fees.FeeValueDeleteParams;
+import com.atguigu.params.fees.FeeValueSaveOrUpdateParams;
 import com.atguigu.result.ResponseData;
 import com.atguigu.service.FeeKeyService;
 import com.atguigu.service.FeeValueService;
@@ -39,6 +42,11 @@ public class FeeController {
      */
     private final FeeValueService feeValueService;
 
+    /**
+     * 保存或更新费用key.
+     * @param params 参数
+     * @return 是否成功
+     */
     @Operation(summary = "保存或更新费用key")
     @PostMapping("/key/saveOrUpdate")
     public ResponseData<Boolean> saveOrUpdateFeeKey(
@@ -48,16 +56,21 @@ public class FeeController {
         Boolean result = feeKeyService.saveOrUpdateFeeKey(params);
         if (result) {
             return ResponseData.ok();
-        }else {
+        } else {
             return ResponseData.fail();
         }
 
     }
 
+    /**
+     * 保存或更新杂费值.
+     * @param params 保存或更新杂费值请求体
+     * @return 是否成功
+     */
     @Operation(summary = "保存或更新杂费值")
     @PostMapping("/value/saveOrUpdate")
     public ResponseData<Boolean> saveOrUpdateFeeValue(
-            @RequestBody @Validated FeeValueSaveOrUpdateParams params) {
+            @RequestBody @Validated final FeeValueSaveOrUpdateParams params) {
 
         log.info("saveOrUpdateFeeValue params: {}", params);
         Boolean result = feeValueService.saveOrUpdateFeeValue(params);
@@ -68,31 +81,55 @@ public class FeeController {
         }
     }
 
+    /**
+     * 查询全部杂费名称和杂费值列表.
+     * @return 杂费名称和杂费值列表
+     */
     @Operation(summary = "查询全部杂费名称和杂费值列表")
     @PostMapping("/list")
-    public ResponseData<List<FeeKeyListVo>> feeInfoList(
-            @RequestBody @Validated FeeKeyListParams params) {
+    public ResponseData<List<FeeKeyListVo>> feeInfoList() {
 
-        log.info("feeInfoList params: {}", params);
-        return null;
+        log.info("feeInfoList :");
+        return ResponseData.ok(feeKeyService.feeInfoList());
     }
 
+    /**
+     *  删除杂费名称.
+     * @param params 删除杂费名称请求体
+     * @return 是否成功
+     */
     @Operation(summary = "删除杂费名称")
     @PostMapping("/key/deleteById")
     public ResponseData<Boolean> deleteFeeKeyById(
-            @RequestBody @Validated FeeKeyDeleteParams params) {
+            @RequestBody @Validated final FeeKeyDeleteParams params) {
 
         log.info("deleteFeeKeyById params: {}", params);
-        return null;
+        Boolean result = feeKeyService.deleteFeeKeyById(params);
+
+        if (result) {
+            return ResponseData.ok();
+        } else {
+            return ResponseData.fail();
+        }
     }
 
+    /**
+     * 删除杂费值.
+     * @param params 删除杂费值请求体
+     * @return 是否成功
+     */
     @Operation(summary = "删除杂费值")
     @PostMapping("/value/deleteById")
     public ResponseData<Boolean> deleteFeeValueById(
-            @RequestBody @Validated FeeValueDeleteParams params) {
+            @RequestBody @Validated final FeeValueDeleteParams params) {
 
         log.info("deleteFeeValueById params: {}", params);
-        return null;
+        Boolean result = feeValueService.removeById(params.getId());
+        if (result) {
+            return ResponseData.ok();
+        } else {
+            return ResponseData.fail();
+        }
     }
 
 }
