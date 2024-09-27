@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @Description:TODO
+ * @Description: 城市信息VO
  * @Author: dansheng
  * @CreateTime: 2024/9/27
  **/

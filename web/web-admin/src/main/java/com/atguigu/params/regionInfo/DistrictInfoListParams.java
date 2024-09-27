@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
- * @Description:TODO
+ * @Description: 城市信息列表参数
  * @Author: dansheng
  * @CreateTime: 2024/9/24
  **/
