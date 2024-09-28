@@ -27,7 +27,7 @@ import java.util.List;
  * @Author: dansheng
  * @CreateTime: 2024/9/21
  **/
-@Tag(name = "FacilityController", description = "公寓设施管理")
+@Tag(name = "公寓设施管理", description = "公寓设施管理")
 @Slf4j
 @RestController
 @RequiredArgsConstructor

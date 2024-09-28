@@ -30,7 +30,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "RegionInfoController", description = "地区信息管理")
+@Tag(name = "地区信息管理", description = "地区信息管理")
 @RequestMapping("/admin/region")
 public class RegionInfoController {
 

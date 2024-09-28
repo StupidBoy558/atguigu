@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * @Description:TODO
+ * @Description: 费用管理.
  * @Author: dansheng
  * @CreateTime: 2024/9/23
  **/
 @Slf4j
-@Tag(name = "FeeController", description = "费用管理")
+@Tag(name = "费用管理", description = "费用管理")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin/fee")

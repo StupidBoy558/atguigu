@@ -47,4 +47,8 @@ public class ResponseData<T> {
     public static <T> ResponseData<T> fail() {
         return build(null, ResultCodeEnum.FAIL);
     }
+
+    public static <T> ResponseData<T> fail(T data) {
+        return build(data, ResultCodeEnum.FAIL);
+    }
 }

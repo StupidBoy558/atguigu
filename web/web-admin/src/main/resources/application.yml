@@ -26,3 +26,9 @@ mybatis-plus:
       logic-delete-field: is_deleted
       logic-not-delete-value: 0
       logic-delete-value: 1
+
+minio:
+  endpoint: http://47.99.60.249:9000
+  access-key: root
+  secret-key: Dansheng@2024
+  bucket-name: lease
