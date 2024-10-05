@@ -1,6 +1,7 @@
 package com.atguigu.service;
 
 import com.atguigu.entity.ApartmentInfo;
+import com.atguigu.params.apartment.ApartmentSaveParams;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -10,4 +11,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface ApartmentInfoService extends IService<ApartmentInfo> {
 
+    /**
+     * 保存或更新公寓信息.
+     *
+     * @param params 公寓保存参数
+     * @return 是否成功
+     */
+    String apartmentSaveOrUpdate(ApartmentSaveParams params);
 }
