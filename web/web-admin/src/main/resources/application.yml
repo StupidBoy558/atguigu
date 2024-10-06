@@ -32,3 +32,6 @@ minio:
   access-key: root
   secret-key: Dansheng@2024
   bucket-name: lease
+
+springdoc:
+  default-flat-param-object: true

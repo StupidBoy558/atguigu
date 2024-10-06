@@ -1,6 +1,11 @@
 package com.atguigu.controller.apartment;
 
-import com.atguigu.params.apartment.*;
+
+import com.atguigu.params.apartment.ApartmentDetailParams;
+import com.atguigu.params.apartment.ApartmentPageParams;
+import com.atguigu.params.apartment.ApartmentRemoveParams;
+import com.atguigu.params.apartment.ApartmentSaveParams;
+import com.atguigu.params.apartment.ApartmentStatusUpdateParams;
 import com.atguigu.result.ResponseData;
 import com.atguigu.service.ApartmentInfoService;
 import com.atguigu.vo.apartment.ApartmentDetailVo;
@@ -25,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/admin/apartment")
-@Tag(name = "公寓信息管理接口")
+@Tag(name = "公寓信息管理")
 public class ApartmentController {
 
     /**
@@ -33,33 +38,56 @@ public class ApartmentController {
      */
     private final ApartmentInfoService apartmentInfoService;
 
+    /**
+     * 保存或更新公寓信息.
+     *
+     * @param params 公寓信息参数
+     * @return 是否成功
+     */
     @Operation(summary = "保存或更新公寓信息")
     @PostMapping("/saveOrUpdate")
     public ResponseData<String> apartmentSaveOrUpdate(
             @RequestBody @Validated final ApartmentSaveParams params) {
 
         log.info("保存或更新公寓信息, params: {}", params);
-        return ResponseData.ok(apartmentInfoService.apartmentSaveOrUpdate(params));
+        return ResponseData.ok(
+                apartmentInfoService.apartmentSaveOrUpdate(params));
     }
 
-    @Operation(summary = "删除公寓信息")
+    /**
+     * 分页查询公寓信息.
+     *
+     * @param params 查询参数
+     * @return 公寓信息列表
+     */
+    @Operation(summary = "根据条件分页查询公寓列表")
     @PostMapping("/pageItem")
-    public ResponseData<IPage<ApartmentItemVo>> apartmentPage(
+    public ResponseData<IPage<ApartmentItemVo>> apartmentPageItem(
             @RequestBody @Validated final ApartmentPageParams params) {
 
         log.info("分页查询公寓信息, params: {}", params);
-        return ResponseData.ok(null);
+        return ResponseData.ok(apartmentInfoService.apartmentPageItem(params));
     }
 
+    /**
+     * 根据ID查询公寓详情.
+     * @param params 查询参数
+     * @return 公寓详情
+     */
     @Operation(summary = "根据ID查询公寓详情")
     @PostMapping("/getDetailById")
     public ResponseData<ApartmentDetailVo> getDetailById(
-            @RequestBody @Validated final ApartmentDetailSelectParams params) {
+            @RequestBody @Validated final ApartmentDetailParams params) {
 
         log.info("根据ID查询公寓详情, params: {}", params);
         return ResponseData.ok(null);
     }
 
+    /**
+     * 根据ID删除公寓信息.
+     * @param params 删除参数
+     * @return 是否成功
+     */
     @Operation(summary = "根据ID删除公寓信息")
     @PostMapping("/removeById")
     public ResponseData<Boolean> removeById(
@@ -69,6 +97,11 @@ public class ApartmentController {
         return ResponseData.ok(true);
     }
 
+    /**
+     * 根据ID更新公寓发布状态.
+     * @param params 更新参数
+     * @return 是否成功
+     */
     @Operation(summary = "根据ID更新公寓发布状态")
     @PostMapping("/updateReleaseStatusById")
     public ResponseData<Boolean> updateReleaseStatusById(

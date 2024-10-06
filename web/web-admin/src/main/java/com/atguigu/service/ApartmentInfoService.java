@@ -1,7 +1,10 @@
 package com.atguigu.service;
 
 import com.atguigu.entity.ApartmentInfo;
+import com.atguigu.params.apartment.ApartmentPageParams;
 import com.atguigu.params.apartment.ApartmentSaveParams;
+import com.atguigu.vo.apartment.ApartmentItemVo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -18,4 +21,12 @@ public interface ApartmentInfoService extends IService<ApartmentInfo> {
      * @return 是否成功
      */
     String apartmentSaveOrUpdate(ApartmentSaveParams params);
+
+    /**
+     * 分页查询公寓信息.
+     *
+     * @param params 查询参数
+     * @return
+     */
+    IPage<ApartmentItemVo> apartmentPageItem(ApartmentPageParams params);
 }

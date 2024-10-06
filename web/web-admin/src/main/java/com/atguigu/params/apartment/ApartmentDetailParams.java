@@ -11,5 +11,5 @@ import lombok.Data;
  **/
 @Data
 @Schema(name = "根据ID查询公寓详情参数", description = "根据ID查询公寓详情参数")
-public class ApartmentDetailSelectParams extends BaseParams {
+public class ApartmentDetailParams extends BaseParams {
 }

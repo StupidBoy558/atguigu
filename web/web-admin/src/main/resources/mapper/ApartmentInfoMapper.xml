@@ -32,4 +32,64 @@
         phone,is_release,create_time,
         update_time,is_deleted
     </sql>
+
+    <select id="apartmentPageItem" resultType="com.atguigu.vo.apartment.ApartmentItemVo">
+        select ai.id,
+        ai.name,
+        ai.introduction,
+        ai.district_id,
+        ai.district_name,
+        ai.city_id,
+        ai.city_name,
+        ai.province_id,
+        ai.province_name,
+        ai.address_detail,
+        ai.latitude,
+        ai.longitude,
+        ai.phone,
+        ai.is_release,
+        ifnull(tc.total_room_count, 0) as total_room_count,
+        ifnull(tc.total_room_count, 0) - ifnull(cc.free_room_count, 0) as free_room_count
+        from (select id,
+        name,
+        introduction,
+        district_id,
+        district_name,
+        city_id,
+        city_name,
+        province_id,
+        province_name,
+        address_detail,
+        latitude,
+        longitude,
+        phone,
+        is_release
+        from apartment_info
+        <where>
+            is_deleted = 0
+            <if test="param.provinceId != null">
+                and province_id = #{param.provinceId}
+            </if>
+            <if test="param.cityId != null">
+                and city_id = #{param.cityId}
+            </if>
+            <if test="param.districtId != null">
+                and district_id = #{param.districtId}
+            </if>
+        </where>
+        ) as ai
+        left join (select apartment_id,
+        count(*) as total_room_count
+        from room_info
+        where is_deleted = 0
+        and is_release = 1
+        group by apartment_id) as tc on ai.id = tc.apartment_id
+        left join (select apartment_id,
+        count(*) as free_room_count
+        from lease_agreement
+        where is_deleted = 0
+        and status in (2, 5)
+        group by apartment_id) as cc on ai.id = cc.apartment_id
+
+    </select>
 </mapper>
