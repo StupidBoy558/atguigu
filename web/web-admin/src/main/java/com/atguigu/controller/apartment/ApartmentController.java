@@ -80,7 +80,8 @@ public class ApartmentController {
             @RequestBody @Validated final ApartmentDetailParams params) {
 
         log.info("根据ID查询公寓详情, params: {}", params);
-        return ResponseData.ok(null);
+        ApartmentDetailVo result = apartmentInfoService.getDetailById(params);
+        return ResponseData.ok(result);
     }
 
     /**

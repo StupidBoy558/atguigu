@@ -4,9 +4,11 @@ import com.atguigu.entity.ApartmentFacility;
 import com.atguigu.entity.ApartmentFeeValue;
 import com.atguigu.entity.ApartmentInfo;
 import com.atguigu.entity.ApartmentLabel;
+import com.atguigu.entity.FacilityInfo;
 import com.atguigu.entity.GraphInfo;
 import com.atguigu.enums.ItemType;
 import com.atguigu.mapper.ApartmentInfoMapper;
+import com.atguigu.params.apartment.ApartmentDetailParams;
 import com.atguigu.params.apartment.ApartmentPageParams;
 import com.atguigu.params.apartment.ApartmentSaveParams;
 import com.atguigu.params.apartment.ApartmentSearchParams;
@@ -16,15 +18,20 @@ import com.atguigu.service.ApartmentFeeValueService;
 import com.atguigu.service.ApartmentInfoService;
 import com.atguigu.service.ApartmentLabelService;
 import com.atguigu.service.GraphInfoService;
+import com.atguigu.vo.apartment.ApartmentDetailVo;
 import com.atguigu.vo.apartment.ApartmentItemVo;
+import com.atguigu.vo.facilityInfo.FacilityInfoListVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -143,6 +150,33 @@ public class ApartmentInfoServiceImpl extends ServiceImpl
             throw new IllegalArgumentException("Query parameters cannot be null");
         }
         return apartmentMapper.apartmentPageItem(page, queryParams);
+    }
+
+    /**
+     * 根据ID值获取公寓信息.
+     *
+     * @param params ApartmentDetailParams
+     * @return 公寓详情
+     */
+    @Override
+    public ApartmentDetailVo getDetailById(ApartmentDetailParams params) {
+
+        Long apartmentId = params.getId();
+
+        // 查询公寓信息
+        ApartmentInfo apartmentInfo = this.getById(apartmentId);
+        ApartmentDetailVo detailVo = ApartmentDetailVo.convertToVo(apartmentInfo);
+
+        // 查询公寓配套
+
+        // 查询标签信息
+
+        // 查询费用信息
+
+        // 查询图片信息
+
+
+        return null;
     }
 }
 
