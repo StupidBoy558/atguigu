@@ -1,6 +1,7 @@
 package com.atguigu.exception;
 
 import com.atguigu.result.ResponseData;
+import com.atguigu.result.ResultCodeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,7 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseBody
     public ResponseEntity<Map<String, String>> handleValidationExceptions(
             final MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -37,12 +39,18 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(RuntimeException.class)
     @ResponseBody
-    public ResponseData handle(final Exception e) {
-        log.error("Exception: ", e);
-        return ResponseData.fail(e.getMessage());
+    public ResponseData handle(final RuntimeException e) {
+        log.error("RuntimeException: ", e);
+        return ResponseData.fail(ResultCodeEnum.REPEAT_SUBMIT.getCode(), e.getMessage());
     }
 
+    @ExceptionHandler(LeaseException.class)
+    @ResponseBody
+    public ResponseData handle(final LeaseException e) {
+        log.error("LeaseException: ", e);
+        return ResponseData.fail(e.getCode(), e.getMessage());
+    }
 
 }

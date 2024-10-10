@@ -1,25 +1,17 @@
 package com.atguigu.vo.apartment;
 
-import com.atguigu.entity.ApartmentInfo;
 import com.atguigu.vo.BaseVo;
-import com.atguigu.vo.facilityInfo.FacilityInfoListVo;
-import com.atguigu.vo.fees.FeeValueListVo;
-import com.atguigu.vo.labelInfo.LabelInfoListVo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import org.springframework.beans.BeanUtils;
-
-import java.util.List;
 
 /**
- * @Description: 公寓详情VO.
+ * @Description: 公寓信息列表.
  * @Author: dansheng
- * @CreateTime: 2024/9/28
+ * @CreateTime: 2024/10/10
  **/
 @Data
-@Schema(name = "ApartmentDetailVo", description = "公寓详情VO")
-public class ApartmentDetailVo extends BaseVo {
-
+@Schema(description = "公寓信息列表")
+public class ApartmentInfoListVo extends BaseVo {
     /**
      * 公寓ID.
      */
@@ -103,41 +95,4 @@ public class ApartmentDetailVo extends BaseVo {
      */
     @Schema(description = "是否发布")
     private Integer isRelease;
-
-    /**
-     * 图片列表.
-     */
-    @Schema(name = "graphVoList", description = "图片列表")
-    private List<GraphVo> graphVoList;
-
-    /**
-     * 标签信息.
-     */
-    @Schema(name = "labelInfoList", description = "标签信息")
-    private List<LabelInfoListVo> labelInfoList;
-
-    /**
-     * 设施信息.
-     */
-    @Schema(name = "facilityInfoList", description = "设施信息")
-    private List<FacilityInfoListVo> facilityInfoList;
-
-    /**
-     * 费用信息.
-     */
-    @Schema(name = "feeValueList", description = "费用信息")
-    private List<FeeValueListVo> feeValueList;
-
-    /**
-     * 转换为VO对象.
-     *
-     * @param apartmentInfo 公寓信息实体
-     * @return VO对象
-     */
-    public static ApartmentDetailVo convertToVo(ApartmentInfo apartmentInfo) {
-        ApartmentDetailVo detailVo = new ApartmentDetailVo();
-        BeanUtils.copyProperties(apartmentInfo, detailVo);
-        return detailVo;
-    }
-
 }

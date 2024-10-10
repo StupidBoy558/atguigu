@@ -2,6 +2,7 @@ package com.atguigu.params.apartment;
 
 import com.atguigu.params.BaseParams;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -16,6 +17,7 @@ public class ApartmentDetailParams extends BaseParams {
     /**
      * 公寓ID.
      */
+    @NotNull
     @Schema(description = "公寓ID")
     private Long id;
 

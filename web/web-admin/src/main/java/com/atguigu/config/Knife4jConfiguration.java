@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @Description:TODO
+ * @Description: 配置Knife4j.
  * @Author: dansheng
  * @CreateTime: 2024/9/15
  **/

@@ -2,6 +2,7 @@ package com.atguigu.controller.apartment;
 
 
 import com.atguigu.params.apartment.ApartmentDetailParams;
+import com.atguigu.params.apartment.ApartmentInfoListParams;
 import com.atguigu.params.apartment.ApartmentPageParams;
 import com.atguigu.params.apartment.ApartmentRemoveParams;
 import com.atguigu.params.apartment.ApartmentSaveParams;
@@ -9,6 +10,7 @@ import com.atguigu.params.apartment.ApartmentStatusUpdateParams;
 import com.atguigu.result.ResponseData;
 import com.atguigu.service.ApartmentInfoService;
 import com.atguigu.vo.apartment.ApartmentDetailVo;
+import com.atguigu.vo.apartment.ApartmentInfoListVo;
 import com.atguigu.vo.apartment.ApartmentItemVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @Description: 公寓信息管理接口.
@@ -80,8 +84,7 @@ public class ApartmentController {
             @RequestBody @Validated final ApartmentDetailParams params) {
 
         log.info("根据ID查询公寓详情, params: {}", params);
-        ApartmentDetailVo result = apartmentInfoService.getDetailById(params);
-        return ResponseData.ok(result);
+        return ResponseData.ok(apartmentInfoService.getDetailById(params));
     }
 
     /**
@@ -91,11 +94,12 @@ public class ApartmentController {
      */
     @Operation(summary = "根据ID删除公寓信息")
     @PostMapping("/removeById")
-    public ResponseData<Boolean> removeById(
+    public ResponseData<Void> removeById(
             @RequestBody @Validated final ApartmentRemoveParams params) {
 
         log.info("根据ID删除公寓信息, params: {}", params);
-        return ResponseData.ok(true);
+        apartmentInfoService.removeApartmentById(params);
+        return ResponseData.ok();
     }
 
     /**
@@ -109,7 +113,21 @@ public class ApartmentController {
             @RequestBody @Validated final ApartmentStatusUpdateParams params) {
 
         log.info("根据ID更新公寓发布状态, params: {}", params);
-        return ResponseData.ok(true);
+        return ResponseData.ok(apartmentInfoService.updateReleaseStatusById(params));
+    }
+
+    /**
+     * 根据区域ID查询公寓信息.
+     *
+     * @param params 查询参数
+     * @return 公寓信息列表
+     */
+    @Operation(summary = "根据区域ID查询公寓信息")
+    @PostMapping("/listInfoByDistrictId")
+    public ResponseData<List<ApartmentInfoListVo>> listInfoByDistrictId(
+            @RequestBody @Validated final ApartmentInfoListParams params) {
+        log.info("根据区域ID查询公寓信息, params: {}", params);
+        return ResponseData.ok(apartmentInfoService.listInfoByDistrictId(params));
     }
 
 }

@@ -15,13 +15,22 @@ public class LabelInfo extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 主键.
+     */
     @TableId(type = IdType.AUTO)
     private Long id;
 
+    /**
+     * 类型.
+     */
     @Schema(description = "类型")
     @TableField(value = "type")
     private ItemType type;
 
+    /**
+     * 标签名称.
+     */
     @Schema(description = "标签名称")
     @TableField(value = "name")
     private String name;
