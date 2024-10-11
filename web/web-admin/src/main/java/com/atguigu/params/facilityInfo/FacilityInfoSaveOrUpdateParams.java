@@ -1,7 +1,7 @@
 package com.atguigu.params.facilityInfo;
 
 import com.atguigu.entity.FacilityInfo;
-import com.atguigu.params.BaseParams;
+import com.atguigu.vo.BaseParams;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -13,7 +13,7 @@ import org.springframework.beans.BeanUtils;
  * @CreateTime: 2024/9/22
  **/
 @Data
-public class FacilityInfoParams extends BaseParams {
+public class FacilityInfoSaveOrUpdateParams extends BaseParams {
 
     /**
      * 自增逐渐.
@@ -49,7 +49,7 @@ public class FacilityInfoParams extends BaseParams {
      * @param param 参数
      * @return 实体对象
      */
-    public static FacilityInfo convertToEntity(final FacilityInfoParams param) {
+    public static FacilityInfo convertToEntity(final FacilityInfoSaveOrUpdateParams param) {
         if (param == null) {
             return null;
         }

@@ -4,7 +4,7 @@ import com.atguigu.entity.ApartmentFacility;
 import com.atguigu.entity.ApartmentFeeValue;
 import com.atguigu.entity.ApartmentInfo;
 import com.atguigu.entity.ApartmentLabel;
-import com.atguigu.params.BaseParams;
+import com.atguigu.vo.BaseParams;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;

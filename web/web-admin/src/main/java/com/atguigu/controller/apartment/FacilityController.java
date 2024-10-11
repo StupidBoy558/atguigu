@@ -4,7 +4,7 @@ package com.atguigu.controller.apartment;
 import com.atguigu.params.facilityInfo.FacilityInfoDeleteParams;
 import com.atguigu.params.facilityInfo.FacilityInfoListParams;
 import com.atguigu.params.facilityInfo.FacilityInfoPageParams;
-import com.atguigu.params.facilityInfo.FacilityInfoParams;
+import com.atguigu.params.facilityInfo.FacilityInfoSaveOrUpdateParams;
 import com.atguigu.result.ResponseData;
 import com.atguigu.service.FacilityInfoService;
 import com.atguigu.vo.facilityInfo.FacilityInfoListVo;
@@ -75,7 +75,7 @@ public class FacilityController {
     @Operation(summary = "新增或修改设施信息")
     @PostMapping("/saveOrUpdate")
     public ResponseData<Boolean> saveOrUpdate(
-            @RequestBody @Validated final FacilityInfoParams param) {
+            @RequestBody @Validated final FacilityInfoSaveOrUpdateParams param) {
 
         log.info("新增或修改设施信息, param: {}", param);
         return ResponseData.ok(facilityService.saveOrUpdateFacility(param));

@@ -1,4 +1,4 @@
-package com.atguigu.params;
+package com.atguigu.vo;
 
 /**
  * @Description:TODO

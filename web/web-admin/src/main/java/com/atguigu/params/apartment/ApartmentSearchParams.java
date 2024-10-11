@@ -1,10 +1,8 @@
 package com.atguigu.params.apartment;
 
-import com.atguigu.params.BaseParams;
+import com.atguigu.vo.BaseParams;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-
-import java.io.Serializable;
 
 /**
  * @Description: 公寓查询参数.

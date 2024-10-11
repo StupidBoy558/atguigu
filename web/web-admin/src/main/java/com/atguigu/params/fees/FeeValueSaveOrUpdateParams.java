@@ -1,7 +1,7 @@
 package com.atguigu.params.fees;
 
 import com.atguigu.entity.FeeValue;
-import com.atguigu.params.BaseParams;
+import com.atguigu.vo.BaseParams;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;

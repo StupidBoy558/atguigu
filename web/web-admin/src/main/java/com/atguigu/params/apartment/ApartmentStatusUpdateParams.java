@@ -1,7 +1,7 @@
 package com.atguigu.params.apartment;
 
 import com.atguigu.enums.ReleaseStatus;
-import com.atguigu.params.BaseParams;
+import com.atguigu.vo.BaseParams;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;

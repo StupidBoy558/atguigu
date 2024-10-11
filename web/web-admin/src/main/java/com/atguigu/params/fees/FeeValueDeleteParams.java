@@ -1,6 +1,6 @@
 package com.atguigu.params.fees;
 
-import com.atguigu.params.BaseParams;
+import com.atguigu.vo.BaseParams;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

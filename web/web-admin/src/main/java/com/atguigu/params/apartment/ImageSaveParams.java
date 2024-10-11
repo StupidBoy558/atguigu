@@ -2,7 +2,7 @@ package com.atguigu.params.apartment;
 
 import com.atguigu.entity.GraphInfo;
 import com.atguigu.enums.ItemType;
-import com.atguigu.params.BaseParams;
+import com.atguigu.vo.BaseParams;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
