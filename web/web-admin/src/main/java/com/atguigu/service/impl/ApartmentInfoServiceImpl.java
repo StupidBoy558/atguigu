@@ -28,6 +28,7 @@ import com.atguigu.service.ApartmentFeeValueService;
 import com.atguigu.service.ApartmentInfoService;
 import com.atguigu.service.ApartmentLabelService;
 import com.atguigu.service.GraphInfoService;
+import com.atguigu.vo.BaseParams;
 import com.atguigu.vo.BaseVo;
 import com.atguigu.vo.apartment.ApartmentDetailVo;
 import com.atguigu.vo.apartment.ApartmentInfoListVo;
@@ -44,6 +45,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -117,8 +119,7 @@ public class ApartmentInfoServiceImpl extends ServiceImpl
     public String apartmentSaveOrUpdate(final ApartmentSaveParams params) {
 
         log.info("保存或更新公寓信息, params: {}", params);
-        ApartmentInfo apartmentNew =
-                ApartmentSaveParams.convertToEntity(params);
+        ApartmentInfo apartmentNew = ApartmentSaveParams.convertToEntity(params);
         // 是否更新
         Long paramsId = params.getId();
         boolean isUpdate = paramsId != null;
@@ -126,49 +127,57 @@ public class ApartmentInfoServiceImpl extends ServiceImpl
 
         //  更新操作：删除原有数据
         if (isUpdate) {
-
             // 删除图片列表
-            LambdaQueryWrapper<GraphInfo> graphWrapper
-                    = new LambdaQueryWrapper<>();
-            graphWrapper.eq(GraphInfo::getItemType, ItemType.APARTMENT);
-            graphWrapper.eq(GraphInfo::getItemId, paramsId);
-            graphService.remove(graphWrapper);
-            // 删除配套列表
-            LambdaQueryWrapper<ApartmentFacility> facilityWrapper
-                    = new LambdaQueryWrapper<>();
-            facilityWrapper.eq(ApartmentFacility::getApartmentId, paramsId);
-            apartmentFacilityService.remove(facilityWrapper);
-            // 删除标签列表
-            LambdaQueryWrapper<ApartmentLabel> labelWrapper
-                    = new LambdaQueryWrapper<>();
-            labelWrapper.eq(ApartmentLabel::getApartmentId, paramsId);
-            apartmentLabelService.remove(labelWrapper);
-            // 删除费用值列表
-            LambdaQueryWrapper<ApartmentFeeValue> feeValueWrapper
-                    = new LambdaQueryWrapper<>();
-            feeValueWrapper.eq(ApartmentFeeValue::getApartmentId, paramsId);
-            apartmentFeeService.remove(feeValueWrapper);
+            removeApartmentRelations(paramsId);
 
+            // 根据公寓ID新增配套关系
+            List<ApartmentFacility> facilityList = ApartmentSaveParams.convertFacility(params);
+            apartmentFacilityService.saveBatch(facilityList);
+            // 根据公寓ID新增标签列表
+            List<ApartmentLabel> labelList = ApartmentSaveParams.convertLabel(params);
+            apartmentLabelService.saveBatch(labelList);
+            // 根据公寓ID新增费用值列表
+            List<ApartmentFeeValue> feeValueList = ApartmentSaveParams.convertFeeValue(params);
+            apartmentFeeService.saveBatch(feeValueList);
+            // 根据公寓id新增图片列表
+            List<GraphInfo> graphList = ImageSaveParams.convert(params);
+            graphService.saveBatch(graphList);
+
+            return "更新成功";
+        } else {
+            // 新增操作
+            Long apartmentNewId = apartmentNew.getId();
+
+            // 根据公寓ID新增配套关系
+            List<ApartmentFacility> facilityList = ApartmentSaveParams.convertFacility(params);
+            if (!CollectionUtils.isEmpty(facilityList)) {
+                facilityList.forEach(facility -> facility.setApartmentId(apartmentNewId));
+                apartmentFacilityService.saveBatch(facilityList);
+            }
+
+            // 根据公寓ID新增标签列表
+            List<ApartmentLabel> labelList = ApartmentSaveParams.convertLabel(params);
+            if (!CollectionUtils.isEmpty(labelList)) {
+                labelList.forEach(label -> label.setApartmentId(apartmentNewId));
+                apartmentLabelService.saveBatch(labelList);
+            }
+
+            // 根据公寓ID新增费用值列表
+            List<ApartmentFeeValue> feeValueList = ApartmentSaveParams.convertFeeValue(params);
+            if (!CollectionUtils.isEmpty(feeValueList)) {
+                feeValueList.forEach(feeValue -> feeValue.setApartmentId(apartmentNewId));
+                apartmentFeeService.saveBatch(feeValueList);
+            }
+
+            // 根据公寓id新增图片列表
+            List<GraphInfo> graphList = ImageSaveParams.convert(params);
+            if (!CollectionUtils.isEmpty(graphList)) {
+                graphList.forEach(graph -> graph.setItemId(apartmentNewId));
+                graphService.saveBatch(graphList);
+            }
+
+            return "新增成功";
         }
-
-        // 根据公寓ID新增配套关系
-        List<ApartmentFacility> facilityList
-                = ApartmentSaveParams.convertFacility(params);
-        apartmentFacilityService.saveBatch(facilityList);
-        // 根据公寓ID新增标签列表
-        List<ApartmentLabel> labelList
-                = ApartmentSaveParams.convertLabel(params);
-        apartmentLabelService.saveBatch(labelList);
-        // 根据公寓ID新增费用值列表
-        List<ApartmentFeeValue> feeValueList
-                = ApartmentSaveParams.convertFeeValue(params);
-        apartmentFeeService.saveBatch(feeValueList);
-        // 根据公寓id新增图片列表
-        List<GraphInfo> graphList = ImageSaveParams.convert(params);
-        graphService.saveBatch(graphList);
-
-        return "操作成功";
-
     }
 
     /**
@@ -246,28 +255,8 @@ public class ApartmentInfoServiceImpl extends ServiceImpl
 
         this.removeById(id);
 
-        // 删除图片列表
-        LambdaQueryWrapper<GraphInfo> graphWrapper = new LambdaQueryWrapper<>();
-        graphWrapper.eq(GraphInfo::getItemType, ItemType.APARTMENT);
-        graphWrapper.eq(GraphInfo::getItemId, id);
-        graphService.remove(graphWrapper);
-
-        // 删除配套列表
-        LambdaQueryWrapper<ApartmentFacility> facilityWrapper = new LambdaQueryWrapper<>();
-        facilityWrapper.eq(ApartmentFacility::getApartmentId, id);
-        apartmentFacilityService.remove(facilityWrapper);
-
-        // 删除标签列表
-        LambdaQueryWrapper<ApartmentLabel> labelWrapper = new LambdaQueryWrapper<>();
-        labelWrapper.eq(ApartmentLabel::getApartmentId, id);
-        apartmentLabelService.remove(labelWrapper);
-
-        // 删除费用值列表
-        LambdaQueryWrapper<ApartmentFeeValue> feeValueWrapper = new LambdaQueryWrapper<>();
-        feeValueWrapper.eq(ApartmentFeeValue::getApartmentId, id);
-        apartmentFeeService.remove(feeValueWrapper);
-
-
+        // 删除公寓信息的关系表数据
+        removeApartmentRelations(id);
     }
 
     /**
@@ -291,6 +280,34 @@ public class ApartmentInfoServiceImpl extends ServiceImpl
         queryWrapper.eq(ApartmentInfo::getDistrictId, params.getDistrictId());
         List<ApartmentInfo> apartmentInfoList = this.list(queryWrapper);
         return BaseVo.convertToVoList(apartmentInfoList, ApartmentInfoListVo.class);
+    }
+
+    /**
+     * 删除公寓关联信息.
+     *
+     * @param paramsId 公寓ID
+     */
+    private void removeApartmentRelations(Long paramsId) {
+        // 删除图片列表
+        LambdaQueryWrapper<GraphInfo> graphWrapper = new LambdaQueryWrapper<>();
+        graphWrapper.eq(GraphInfo::getItemType, ItemType.APARTMENT);
+        graphWrapper.eq(GraphInfo::getItemId, paramsId);
+        graphService.remove(graphWrapper);
+
+        // 删除配套列表
+        LambdaQueryWrapper<ApartmentFacility> facilityWrapper = new LambdaQueryWrapper<>();
+        facilityWrapper.eq(ApartmentFacility::getApartmentId, paramsId);
+        apartmentFacilityService.remove(facilityWrapper);
+
+        // 删除标签列表
+        LambdaQueryWrapper<ApartmentLabel> labelWrapper = new LambdaQueryWrapper<>();
+        labelWrapper.eq(ApartmentLabel::getApartmentId, paramsId);
+        apartmentLabelService.remove(labelWrapper);
+
+        // 删除费用值列表
+        LambdaQueryWrapper<ApartmentFeeValue> feeValueWrapper = new LambdaQueryWrapper<>();
+        feeValueWrapper.eq(ApartmentFeeValue::getApartmentId, paramsId);
+        apartmentFeeService.remove(feeValueWrapper);
     }
 }
 

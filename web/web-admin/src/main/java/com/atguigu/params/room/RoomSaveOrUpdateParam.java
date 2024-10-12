@@ -1,9 +1,11 @@
 package com.atguigu.params.room;
 
+import com.atguigu.entity.RoomInfo;
 import com.atguigu.params.apartment.ImageSaveParams;
 import com.atguigu.vo.BaseParams;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -82,4 +84,16 @@ public class RoomSaveOrUpdateParam extends BaseParams {
     @Schema(description = "房间的可选租期列表")
     private List<Long> leaseTermIds;
 
+    /**
+     * 将params转换为实体类
+     *
+     * @param params 房间保存参数
+     * @return 实体类
+     */
+    public static RoomInfo convertToEntity(RoomSaveOrUpdateParam params) {
+        RoomInfo roomInfo = new RoomInfo();
+        BeanUtils.copyProperties(params, roomInfo);
+        return roomInfo;
+
+    }
 }

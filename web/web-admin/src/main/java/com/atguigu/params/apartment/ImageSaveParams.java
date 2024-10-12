@@ -20,9 +20,15 @@ import java.util.stream.Collectors;
 @Data
 @Schema(name = "ImageSaveParams", description = "图片保存参数")
 public class ImageSaveParams extends BaseParams {
+    /**
+     * 图片名称.
+     */
     @Schema(description = "图片名称")
     private String name;
 
+    /**
+     * 图片URL.
+     */
     @Schema(description = "图片URL")
     private String url;
 
