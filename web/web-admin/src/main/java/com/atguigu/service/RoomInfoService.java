@@ -7,6 +7,8 @@ import com.atguigu.params.room.RoomPageItemParam;
 import com.atguigu.params.room.RoomRemoveByIdParam;
 import com.atguigu.params.room.RoomSaveOrUpdateParam;
 import com.atguigu.params.room.RoomUpdateStatusByIdParam;
+import com.atguigu.vo.room.RoomInfoItemVo;
+import com.atguigu.vo.room.RoomInfoVo;
 import com.atguigu.vo.room.RoomPageVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -41,11 +43,11 @@ public interface RoomInfoService extends IService<RoomInfo> {
     void updateReleaseStatusById(RoomUpdateStatusByIdParam params);
 
     /**
-     * 根据id获取房间详细信息.
-     *
+     * 根据id查询房间详情.
      * @param params 房间的id
+     * @return 房间的详情信息
      */
-    void roomGetDetailById(RoomGetByIdParam params);
+    RoomInfoItemVo roomGetDetailById(RoomGetByIdParam params);
 
     /**
      * 根据id删除房间.
@@ -56,8 +58,7 @@ public interface RoomInfoService extends IService<RoomInfo> {
 
     /**
      * 根据公寓id查询房间列表.
-     *
      * @param params 房间的公寓id
      */
-    void listBasicByApartmentId(RoomListByApartmentIdParam params);
+    RoomInfoVo listBasicByApartmentId(RoomListByApartmentIdParam params);
 }

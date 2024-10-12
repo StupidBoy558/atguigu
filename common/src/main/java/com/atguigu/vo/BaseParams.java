@@ -20,19 +20,18 @@ public class BaseParams implements Serializable {
     }
 
     /**
-     * Convert params to entity.
+     * Convert a list of objects to a list of another type.
      */
-    public static <T, V> List<V> convertToEntityList(List<T> paramsList, Class<V> entityClass) {
-
-        return paramsList.stream().map(params -> {
-            V entityInstance;
+    public static <T, V> List<V> convertList(List<T> sourceList, Class<V> targetClass) {
+        return sourceList.stream().map(source -> {
+            V targetInstance;
             try {
-                entityInstance = entityClass.getDeclaredConstructor().newInstance();
+                targetInstance = targetClass.getDeclaredConstructor().newInstance();
             } catch (Exception e) {
-                throw new RuntimeException("Failed to create instance of " + entityClass.getName(), e);
+                throw new RuntimeException("Failed to create instance of " + targetClass.getName(), e);
             }
-            BeanUtils.copyProperties(params, entityInstance);
-            return entityInstance;
+            BeanUtils.copyProperties(source, targetInstance);
+            return targetInstance;
         }).collect(Collectors.toList());
     }
 }

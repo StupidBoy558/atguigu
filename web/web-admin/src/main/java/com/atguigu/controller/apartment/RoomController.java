@@ -8,8 +8,9 @@ import com.atguigu.params.room.RoomSaveOrUpdateParam;
 import com.atguigu.params.room.RoomUpdateStatusByIdParam;
 import com.atguigu.result.ResponseData;
 import com.atguigu.service.RoomInfoService;
+import com.atguigu.vo.room.RoomInfoItemVo;
 import com.atguigu.vo.room.RoomPageVo;
-import com.atguigu.vo.room.RoomVo;
+import com.atguigu.vo.room.RoomInfoVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -59,12 +60,11 @@ public class RoomController {
 
     @Operation(summary = "根据id获取房间详细信息")
     @PostMapping("/getDetailById")
-    public ResponseData<RoomVo> roomGetDetailById(
+    public ResponseData<RoomInfoItemVo> roomGetDetailById(
             @RequestBody @Validated RoomGetByIdParam params) {
 
         log.info("根据id获取房间详细信息, params: {}", params);
-        roomService.roomGetDetailById(params);
-        return ResponseData.ok();
+        return ResponseData.ok(roomService.roomGetDetailById(params));
     }
 
     @Operation(summary = "根据id删除房间")
@@ -88,11 +88,10 @@ public class RoomController {
 
     @Operation(summary = "根据公寓id查询房间列表")
     @PostMapping("/listBasicByApartmentId")
-    public ResponseData<Void> listBasicByApartmentId(
+    public ResponseData<RoomInfoVo> listBasicByApartmentId(
             @RequestBody @Validated RoomListByApartmentIdParam params) {
 
         log.info("根据公寓id查询房间列表, params: {}", params);
-        roomService.listBasicByApartmentId(params);
-        return ResponseData.ok();
+        return ResponseData.ok(roomService.listBasicByApartmentId(params));
     }
 }

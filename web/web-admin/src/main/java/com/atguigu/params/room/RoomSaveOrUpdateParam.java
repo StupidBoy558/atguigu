@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Description: 保存或更新room信息参数.
@@ -85,8 +86,7 @@ public class RoomSaveOrUpdateParam extends BaseParams {
     private List<Long> leaseTermIds;
 
     /**
-     * 将params转换为实体类
-     *
+     * 将params转换为实体类.
      * @param params 房间保存参数
      * @return 实体类
      */
@@ -96,4 +96,5 @@ public class RoomSaveOrUpdateParam extends BaseParams {
         return roomInfo;
 
     }
+
 }

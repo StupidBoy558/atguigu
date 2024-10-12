@@ -1,6 +1,8 @@
 package com.atguigu.params.room;
 
 import com.atguigu.vo.BaseParams;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -10,4 +12,11 @@ import lombok.Data;
  **/
 @Data
 public class RoomRemoveByIdParam extends BaseParams {
+
+    /**
+     * 房间的id.
+     */
+    @NotNull
+    @Schema(description = "房间的id")
+    private Long id;
 }
