@@ -85,16 +85,16 @@
         <where>
             ri.is_deleted = 0
             <if test="apartmentId != null">
-                and ri.apartment_id = #{apartmentId}
+                and ri.apartment_id = #{params.apartmentId}
             </if>
             <if test="provinceId != null">
-                and ai.province_id = #{provinceId}
+                and ai.province_id = #{params.provinceId}
             </if>
             <if test="cityId != null">
-                and ai.city_id = #{cityId}
+                and ai.city_id = #{params.cityId}
             </if>
             <if test="districtId != null">
-                and ai.district_id = #{districtId}
+                and ai.district_id = #{params.districtId}
             </if>
         </where>
 

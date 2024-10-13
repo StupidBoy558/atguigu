@@ -6,6 +6,7 @@ import com.atguigu.vo.room.RoomPageVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @author wf_wj
@@ -22,7 +23,8 @@ public interface RoomInfoMapper extends BaseMapper<RoomInfo> {
      * @param params     房间的分页查询参数
      * @return 房间分页列表
      */
-    IPage<RoomPageVo> roomPageItem(Page<RoomPageVo> pageVoPage, RoomPageItemParam params);
+    IPage<RoomPageVo> roomPageItem(
+            @Param("page") Page<RoomPageVo> pageVoPage, @Param("params") RoomPageItemParam params);
 }
 
 
