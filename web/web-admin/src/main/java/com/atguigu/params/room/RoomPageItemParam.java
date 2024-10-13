@@ -10,6 +10,7 @@ import lombok.Data;
  * @CreateTime: 2024/10/11
  **/
 @Data
+@Schema(description = "分页查询房间的信息请求体")
 public class RoomPageItemParam extends BaseParams {
 
     /**

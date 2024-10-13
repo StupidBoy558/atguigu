@@ -44,24 +44,21 @@
             <result property="longitude" column="longitude" jdbcType="DECIMAL"/>
             <result property="phone" column="phone" jdbcType="VARCHAR"/>
             <result property="isRelease" column="isRelease" jdbcType="TINYINT"/>
-            <result property="totalRoomCount" column="totalRoomCount" jdbcType="INTEGER"/>
-            <result property="freeRoomCount" column="freeRoomCount" jdbcType="INTEGER"/>
         </association>
     </resultMap>
 
     <select id="roomPageItem" resultMap="RoomPageQuery">
-        select
-        ri.id,
+        select ri.id,
         ri.room_number,
         ri.rent,
         ri.apartment_id,
         ri.is_release,
-        la.end_date as LeasEndDate,
+        la.lease_end_date as LeasEndDate,
         case when la.id is null then 0 else 1 end as isCheckIn,
         ai.id as apartmentId,
         ai.name as name,
         ai.introduction as introduction,
-        ai,district_id as districtId,
+        ai.district_id as districtId,
         ai.district_name as districtName,
         ai.city_id as cityId,
         ai.city_name as cityName,
@@ -71,9 +68,7 @@
         ai.latitude as latitude,
         ai.longitude as longitude,
         ai.phone as phone,
-        ai.is_release as isRelease,
-        ai.total_room_count as totalRoomCount,
-        ai.free_room_count as freeRoomCount,
+        ai.is_release as isRelease
         from room_info ri
         left join apartment_info ai
         on ri.apartment_id = ai.id
@@ -84,19 +79,20 @@
         and la.is_deleted = 0
         <where>
             ri.is_deleted = 0
-            <if test="apartmentId != null">
+            <if test="params.apartmentId != null">
                 and ri.apartment_id = #{params.apartmentId}
             </if>
-            <if test="provinceId != null">
+            <if test="params.provinceId != null">
                 and ai.province_id = #{params.provinceId}
             </if>
-            <if test="cityId != null">
+            <if test="params.cityId != null">
                 and ai.city_id = #{params.cityId}
             </if>
-            <if test="districtId != null">
+            <if test="params.districtId != null">
                 and ai.district_id = #{params.districtId}
             </if>
         </where>
+
 
     </select>
 </mapper>

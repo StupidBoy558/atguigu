@@ -97,16 +97,4 @@ public class ApartmentItemVo extends BaseVo {
     @Schema(description = "是否发布")
     private Integer isRelease;
 
-    /**
-     * 房间的总数.
-     */
-    @Schema(description = "房间总数")
-    private Long totalRoomCount;
-
-    /**
-     * 空闲房间数.
-     */
-    @Schema(description = "空闲房间数")
-    private Long freeRoomCount;
-
 }
