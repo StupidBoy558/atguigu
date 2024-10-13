@@ -17,11 +17,18 @@ public interface LabelInfoMapper extends BaseMapper<LabelInfo> {
 
     /**
      * 根据公寓ID查询标签列表.
-     *
      * @param apartmentId 公寓ID
      * @return 标签列表
      */
     List<LabelInfoListVo> selectListById(@Param("id") Long apartmentId);
+
+    /**
+     * 根据房间ID查询标签列表.
+     *
+     * @param roomId 房间ID
+     * @return 标签列表
+     */
+    List<LabelInfoListVo> listByRoomId(@Param("id") Long roomId);
 }
 
 

@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @Description: 房间管理.
  * @Author: dansheng
@@ -88,7 +90,7 @@ public class RoomController {
 
     @Operation(summary = "根据公寓id查询房间列表")
     @PostMapping("/listBasicByApartmentId")
-    public ResponseData<RoomInfoVo> listBasicByApartmentId(
+    public ResponseData<List<RoomInfoVo>> listBasicByApartmentId(
             @RequestBody @Validated RoomListByApartmentIdParam params) {
 
         log.info("根据公寓id查询房间列表, params: {}", params);

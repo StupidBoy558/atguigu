@@ -7,6 +7,12 @@ import com.atguigu.entity.RoomLabel;
 import com.atguigu.entity.RoomLeaseTerm;
 import com.atguigu.entity.RoomPaymentType;
 import com.atguigu.enums.ItemType;
+import com.atguigu.enums.ReleaseStatus;
+import com.atguigu.mapper.AttrValueMapper;
+import com.atguigu.mapper.FacilityInfoMapper;
+import com.atguigu.mapper.LabelInfoMapper;
+import com.atguigu.mapper.LeaseAgreementMapper;
+import com.atguigu.mapper.PaymentTypeMapper;
 import com.atguigu.params.room.RoomGetByIdParam;
 import com.atguigu.params.room.RoomListByApartmentIdParam;
 import com.atguigu.params.room.RoomPageItemParam;
@@ -22,10 +28,16 @@ import com.atguigu.service.RoomPaymentTypeService;
 import com.atguigu.vo.BaseParams;
 import com.atguigu.vo.BaseVo;
 import com.atguigu.vo.apartment.GraphVo;
+import com.atguigu.vo.attribute.AttrValueListVo;
+import com.atguigu.vo.facilityInfo.FacilityInfoListVo;
+import com.atguigu.vo.labelInfo.LabelInfoListVo;
+import com.atguigu.vo.leaseTerm.LeaseTermListVo;
+import com.atguigu.vo.paymentType.PaymentTypeListVo;
 import com.atguigu.vo.room.RoomInfoItemVo;
 import com.atguigu.vo.room.RoomInfoVo;
 import com.atguigu.vo.room.RoomPageVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -86,6 +98,23 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
     private final RoomInfoMapper roomInfoMapper;
 
     /**
+     * 房间配套Mapper.
+     */
+    private final FacilityInfoMapper facilityInfoMapper;
+
+    /**
+     * 标签信息Mapper.
+     */
+    private final LabelInfoMapper labelInfoMapper;
+
+    /**
+     * 属性值Mapper.
+     */
+    private final AttrValueMapper attrValueMapper;
+    private final PaymentTypeMapper paymentTypeMapper;
+    private final LeaseAgreementMapper leaseAgreementMapper;
+
+    /**
      * 保存或更新房间的信息.
      * @param params 房间的信息参数
      */
@@ -131,6 +160,11 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
     @Override
     public void updateReleaseStatusById(final RoomUpdateStatusByIdParam params) {
 
+        log.info("更新房间的发布状态, params: {}", params);
+        LambdaUpdateWrapper<RoomInfo> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(RoomInfo::getId, params.getId());
+        updateWrapper.set(RoomInfo::getIsRelease, ReleaseStatus.RELEASED);
+        this.update(updateWrapper);
     }
 
     /**
@@ -159,11 +193,31 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
         graphWrapper.eq(GraphInfo::getItemType, ItemType.ROOM);
         List<GraphInfo> graphInfos = graphService.list(graphWrapper);
 
+        // 查询房间的配套信息
+        List<FacilityInfoListVo> facilityListVo = facilityInfoMapper.listByRoomId(roomId);
+
+        // 查询房间的标签信息
+        List<LabelInfoListVo> labelListVo = labelInfoMapper.listByRoomId(roomId);
+
+        // 查询房间的属性值信息
+        List<AttrValueListVo> attrValueListVo = attrValueMapper.listByRoomId(roomId);
+
+        // 查询房间的支付方式信息
+        List<PaymentTypeListVo> paymentTypeListVo = paymentTypeMapper.listByRoomId(roomId);
+
+        // 查询房间的租期信息
+        List<LeaseTermListVo> leaseTermListVo = leaseAgreementMapper.listByRoomId(roomId);
+
         // 转换为VO对象
         RoomInfoItemVo roomInfoItemVo = RoomInfoItemVo.convertToVo(roomEntity);
 
-        // 图片列表
+        // 构建返回VO
         roomInfoItemVo.setGraphList(BaseVo.convertToVoList(graphInfos, GraphVo.class));
+        roomInfoItemVo.setFacilityList(facilityListVo);
+        roomInfoItemVo.setLabelList(labelListVo);
+        roomInfoItemVo.setAttrValueList(attrValueListVo);
+        roomInfoItemVo.setPaymentTypeList(paymentTypeListVo);
+        roomInfoItemVo.setLeaseTermList(leaseTermListVo);
 
         return roomInfoItemVo;
     }
@@ -175,6 +229,10 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
     @Override
     public void roomRemoveById(final RoomRemoveByIdParam params) {
 
+        log.info("根据id删除房间信息, params: {}", params);
+        this.removeById(params.getId());
+        removeExistingRelations(params.getId());
+
     }
 
     /**
@@ -183,9 +241,11 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
      * @return 房间列表
      */
     @Override
-    public RoomInfoVo listBasicByApartmentId(final RoomListByApartmentIdParam params) {
-
-        return null;
+    public List<RoomInfoVo> listBasicByApartmentId(final RoomListByApartmentIdParam params) {
+        LambdaQueryWrapper<RoomInfo> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(RoomInfo::getApartmentId, params.getApartmentId());
+        List<RoomInfo> roomInfoList = this.list(queryWrapper);
+        return BaseVo.convertToVoList(roomInfoList, RoomInfoVo.class);
     }
 
     /**

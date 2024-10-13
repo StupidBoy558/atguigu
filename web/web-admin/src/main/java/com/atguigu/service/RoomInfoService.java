@@ -13,6 +13,8 @@ import com.atguigu.vo.room.RoomPageVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
 * @author wf_wj
 * @description 针对表【room_info(房间信息表)】的数据库操作Service
@@ -57,8 +59,9 @@ public interface RoomInfoService extends IService<RoomInfo> {
     void roomRemoveById(RoomRemoveByIdParam params);
 
     /**
-     * 根据公寓id查询房间列表.
-     * @param params 房间的公寓id
+     * 根据公寓id查询房间基本信息列表.
+     * @param params 公寓id
+     * @return 房间基本信息列表
      */
-    RoomInfoVo listBasicByApartmentId(RoomListByApartmentIdParam params);
+    List<RoomInfoVo> listBasicByApartmentId(RoomListByApartmentIdParam params);
 }

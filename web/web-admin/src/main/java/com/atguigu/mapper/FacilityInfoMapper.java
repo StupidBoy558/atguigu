@@ -25,6 +25,14 @@ public interface FacilityInfoMapper extends BaseMapper<FacilityInfo> {
      */
     List<FacilityInfoListVo> selectListByIdAndItem(
             @Param("itemType") ItemType itemType, @Param("id") Long apartmentId);
+
+    /**
+     * 根据房间ID查询配套信息.
+     *
+     * @param roomId 房间ID
+     * @return 配套信息列表
+     */
+    List<FacilityInfoListVo> listByRoomId(@Param("id") Long roomId);
 }
 
 

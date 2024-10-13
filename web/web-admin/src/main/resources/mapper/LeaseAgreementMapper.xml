@@ -33,4 +33,13 @@
         status,source_type,additional_info,
         create_time,update_time,is_deleted
     </sql>
+
+    <select id="listByRoomId" resultType="com.atguigu.vo.leaseTerm.LeaseTermListVo">
+        select id, month_count, unit
+        from lease_term
+        where id in (select lease_term_id
+                     from room_lease_term
+                     where room_id = #{id}
+                       and is_deleted = 0)
+    </select>
 </mapper>

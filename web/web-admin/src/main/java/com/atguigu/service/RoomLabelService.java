@@ -1,7 +1,11 @@
 package com.atguigu.service;
 
 import com.atguigu.entity.RoomLabel;
+import com.atguigu.vo.labelInfo.LabelInfoListVo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
 * @author wf_wj

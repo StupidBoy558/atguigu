@@ -7,6 +7,7 @@ import com.atguigu.vo.attribute.AttrValueListVo;
 import com.atguigu.vo.facilityInfo.FacilityInfoListVo;
 import com.atguigu.vo.labelInfo.LabelInfoListVo;
 import com.atguigu.vo.leaseTerm.LeaseAgreementListVo;
+import com.atguigu.vo.leaseTerm.LeaseTermListVo;
 import com.atguigu.vo.paymentType.PaymentTypeListVo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -87,7 +88,7 @@ public class RoomInfoItemVo extends BaseVo {
      * 租期列表.
      */
     @Schema(description = "租期列表")
-    private List<LeaseAgreementListVo> leaseAgreementList;
+    private List<LeaseTermListVo> leaseTermList;
 
     /**
      * 将实体类转换为VO对象.
