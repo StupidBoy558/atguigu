@@ -23,6 +23,10 @@ public class BaseParams implements Serializable {
      * Convert a list of objects to a list of another type.
      */
     public static <T, V> List<V> convertList(List<T> sourceList, Class<V> targetClass) {
+        if (sourceList == null) {
+            return null;
+        }
+
         return sourceList.stream().map(source -> {
             V targetInstance;
             try {

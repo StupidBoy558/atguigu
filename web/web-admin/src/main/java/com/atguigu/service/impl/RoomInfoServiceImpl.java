@@ -163,7 +163,7 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
         log.info("更新房间的发布状态, params: {}", params);
         LambdaUpdateWrapper<RoomInfo> updateWrapper = new LambdaUpdateWrapper<>();
         updateWrapper.eq(RoomInfo::getId, params.getId());
-        updateWrapper.set(RoomInfo::getIsRelease, ReleaseStatus.RELEASED);
+        updateWrapper.set(RoomInfo::getIsRelease, params.getStatus());
         this.update(updateWrapper);
     }
 
