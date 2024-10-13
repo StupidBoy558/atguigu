@@ -1,6 +1,7 @@
 package com.atguigu.service;
 
 import com.atguigu.entity.ViewAppointment;
+import com.atguigu.params.appointment.AppointmentStatusUpdateParams;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,5 +10,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2024-09-16 22:26:48
 */
 public interface ViewAppointmentService extends IService<ViewAppointment> {
+
+    /**
+     * 根据id更新预约看房状态.
+     *
+     * @param params 预约看房状态更新参数
+     */
+    void appointmentUpdateStatusById(AppointmentStatusUpdateParams params);
 
 }
