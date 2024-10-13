@@ -92,10 +92,10 @@
                 and va.apartment_id = #{params.apartmentId}
             </if>
             <if test="params.name != null">
-                and va.name = #{params.name}
+                and va.name like concat('%', #{params.name}, '%')
             </if>
             <if test="params.phone != null">
-                and va.phone = #{params.phone}
+                and va.phone like concat('%', #{params.phone}, '%')
             </if>
         </where>
     </select>
