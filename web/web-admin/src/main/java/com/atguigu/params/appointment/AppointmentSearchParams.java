@@ -7,16 +7,16 @@ import lombok.Data;
 /**
  * @Description: 预约看房分页查询参数.
  * @Author: dansheng
- * @CreateTime: 2024/10/13
+ * @CreateTime: 2024/10/14
  **/
 @Data
-public class AppointmentPageParams extends BaseParams {
+public class AppointmentSearchParams extends BaseParams {
 
     /**
      * 预约公寓所在省份.
      */
     @Schema(description = "预约公寓所在省份")
-    private Long provinceId;
+    private Long propertyId;
 
     /**
      * 预约公寓所在城市.
@@ -48,15 +48,4 @@ public class AppointmentPageParams extends BaseParams {
     @Schema(description = "预约人电话")
     private String phone;
 
-    /**
-     * 分页查询参数current.
-     */
-    @Schema(description = "分页查询参数current")
-    private Long current;
-
-    /**
-     * 分页查询参数size.
-     */
-    @Schema(description = "分页查询参数size")
-    private Long size;
 }

@@ -41,11 +41,11 @@ public class ViewAppointmentController {
      */
     @Operation(summary = "分页查询预约看房信息")
     @PostMapping("/page")
-    public ResponseData<IPage<AppointmentPageVo>> appointmentPageParams(
+    public ResponseData<IPage<AppointmentPageVo>> appointmentPageItem(
             @RequestBody @Validated final AppointmentPageParams params) {
 
         log.info("分页查询预约看房信息: {}", params);
-        return ResponseData.ok(null);
+        return ResponseData.ok(appointmentService.appointmentPageItem(params));
     }
 
     /**

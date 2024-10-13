@@ -24,4 +24,79 @@
         additional_info,appointment_status,create_time,
         update_time,is_deleted
     </sql>
+
+    <resultMap id="AppointmentPageItem" type="com.atguigu.vo.appointment.AppointmentPageVo">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="userId" column="user_id" jdbcType="BIGINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="apartmentId" column="apartment_id" jdbcType="INTEGER"/>
+        <result property="appointmentTime" column="appointment_time" jdbcType="TIMESTAMP"/>
+        <result property="additionalInfo" column="additional_info" jdbcType="VARCHAR"/>
+        <result property="appointmentStatus" column="appointment_status" jdbcType="TINYINT"/>
+        <association property="apartmentItemVo" javaType="com.atguigu.vo.apartment.ApartmentItemVo" autoMapping="true">
+            <id property="id" column="apartment_id" jdbcType="INTEGER"/>
+            <result property="name" column="apartment_name" jdbcType="VARCHAR"/>
+            <result property="introduction" column="introduction" jdbcType="VARCHAR"/>
+            <result property="districtId" column="district_id" jdbcType="BIGINT"/>
+            <result property="districtName" column="district_name" jdbcType="VARCHAR"/>
+            <result property="cityId" column="city_id" jdbcType="BIGINT"/>
+            <result property="cityName" column="city_name" jdbcType="VARCHAR"/>
+            <result property="provinceId" column="province_id" jdbcType="BIGINT"/>
+            <result property="provinceName" column="province_name" jdbcType="VARCHAR"/>
+            <result property="addressDetail" column="address_detail" jdbcType="VARCHAR"/>
+            <result property="latitude" column="latitude" jdbcType="DOUBLE"/>
+            <result property="longitude" column="longitude" jdbcType="DOUBLE"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="isRelease" column="is_release" jdbcType="TINYINT"/>
+        </association>
+
+    </resultMap>
+    <select id="appointmentPageItem" resultMap="AppointmentPageItem">
+        select va.id,
+        va.user_id,
+        va.name,
+        va.phone,
+        va.apartment_id,
+        va.appointment_time,
+        va.additional_info,
+        va.appointment_status,
+        ap.id as apartment_id,
+        ap.name as apartment_name,
+        ap.introduction,
+        ap.district_id,
+        ap.district_name,
+        ap.city_id,
+        ap.city_name,
+        ap.province_id,
+        ap.province_name,
+        ap.address_detail,
+        ap.latitude,
+        ap.longitude,
+        ap.phone,
+        ap.is_release
+        from view_appointment va
+        left join apartment_info ap on va.apartment_id = ap.id and ap.is_deleted = 0
+        <where>
+            va.is_deleted = 0
+            <if test="params.provinceId != null">
+                and ap.province_id = #{params.provinceId}
+            </if>
+            <if test="params.cityId != null">
+                and ap.city_id = #{params.cityId}
+            </if>
+            <if test="params.districtId != null">
+                and ap.district_id = #{params.districtId}
+            </if>
+            <if test="params.apartmentId != null">
+                and va.apartment_id = #{params.apartmentId}
+            </if>
+            <if test="params.name != null">
+                and va.name = #{params.name}
+            </if>
+            <if test="params.phone != null">
+                and va.phone = #{params.phone}
+            </if>
+        </where>
+    </select>
 </mapper>
