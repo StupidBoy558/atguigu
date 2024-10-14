@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * @Description:TODO
+ * @Description: 支付类型查询响应体.
  * @Author: dansheng
  * @CreateTime: 2024/9/15
  **/

@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @Description:TODO
+ * @Description: 租期查询VO.
  * @Author: dansheng
  * @CreateTime: 2024/9/16
  **/

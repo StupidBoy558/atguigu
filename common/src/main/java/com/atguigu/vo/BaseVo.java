@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @Description:TODO
+ * @Description: BaseVo.
  * @Author: dansheng
  * @CreateTime: 2024/9/15
  **/

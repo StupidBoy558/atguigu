@@ -2,6 +2,8 @@ package com.atguigu.vo.appointment;
 
 import com.atguigu.vo.BaseVo;
 import com.atguigu.vo.apartment.ApartmentItemVo;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -48,6 +50,7 @@ public class AppointmentPageVo extends BaseVo {
     /**
      * 预约时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Schema(description = "预约时间")
     private Date appointmentTime;
 
