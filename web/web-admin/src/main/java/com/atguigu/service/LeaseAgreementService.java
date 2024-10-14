@@ -50,7 +50,6 @@ public interface LeaseAgreementService extends IService<LeaseAgreement> {
 
     /**
      * 根据ID更新租约状态.
-     *
      * @param params 根据ID更新租约状态参数
      */
     void agreementUpdateStatusById(AgreementUpdateStatusByIdParams params);

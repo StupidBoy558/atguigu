@@ -3,6 +3,7 @@ package com.atguigu.service.impl;
 import com.atguigu.params.agreement.AgreementPageParams;
 import com.atguigu.params.agreement.AgreementRemoveByIdParams;
 import com.atguigu.params.agreement.AgreementSearchParams;
+import com.atguigu.params.agreement.AgreementUpdateStatusByIdParams;
 import com.atguigu.params.agreement.LeaseAgreementSaveOrUpdateParams;
 import com.atguigu.vo.agreement.AgreementPageVo;
 import com.atguigu.vo.agreement.AgreementSearchVo;
@@ -62,6 +63,11 @@ public class LeaseAgreementServiceImpl extends ServiceImpl<LeaseAgreementMapper,
      */
     @Override
     public void agreementRemoveById(AgreementRemoveByIdParams params) {
+
+    }
+
+    @Override
+    public void agreementUpdateStatusById(AgreementUpdateStatusByIdParams params) {
 
     }
 }

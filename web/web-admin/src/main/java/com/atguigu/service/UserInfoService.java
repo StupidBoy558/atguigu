@@ -1,6 +1,10 @@
 package com.atguigu.service;
 
 import com.atguigu.entity.UserInfo;
+import com.atguigu.params.user.UserInfoPageParams;
+import com.atguigu.params.user.UserUpdateStatusParams;
+import com.atguigu.vo.user.UserInfoPageVo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -10,4 +14,19 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface UserInfoService extends IService<UserInfo> {
 
+    /**
+     * 分页查询用户信息.
+     *
+     * @param params 分页查询参数
+     * @return 用户信息分页列表
+     */
+    IPage<UserInfoPageVo> pageUserInfo(final UserInfoPageParams params);
+
+    /**
+     * 根据用户id更新账号状态.
+     *
+     * @param params 更新参数
+     * @return 更新结果
+     */
+    Void updateStatusById(UserUpdateStatusParams params);
 }
