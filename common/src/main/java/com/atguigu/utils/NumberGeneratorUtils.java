@@ -1,4 +1,4 @@
-package com.atguigu.tools;
+package com.atguigu.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
