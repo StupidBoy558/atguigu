@@ -1,7 +1,11 @@
 package com.atguigu.service.impl;
 
 import com.atguigu.params.system.SystemUserPageParams;
+import com.atguigu.params.system.SystemUserRemoveByIdParams;
+import com.atguigu.params.system.SystemUserSaveOrUpdateParams;
 import com.atguigu.params.system.SystemUserSearchByIdParams;
+import com.atguigu.params.system.SystemUserSearchByNameParams;
+import com.atguigu.params.system.SystemUserUpdateStatusParams;
 import com.atguigu.vo.system.SystemUserItemVo;
 import com.atguigu.vo.system.SystemUserPageVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -41,6 +45,33 @@ public class SystemUserServiceImpl extends ServiceImpl<SystemUserMapper, SystemU
     public SystemUserItemVo systemUserSearchById(SystemUserSearchByIdParams params) {
 
         return null;
+    }
+
+    @Override
+    public void systemUserSaveOrUpdate(SystemUserSaveOrUpdateParams params) {
+
+    }
+
+    /**
+     * 根据用户名查询用户信息.
+     *
+     * @param params 查询参数
+     * @return 用户信息
+     */
+    @Override
+    public Boolean userNameExists(SystemUserSearchByNameParams params) {
+
+        return null;
+    }
+
+    @Override
+    public void systemUserRemoveById(SystemUserRemoveByIdParams params) {
+
+    }
+
+    @Override
+    public void updateStatusById(SystemUserUpdateStatusParams params) {
+
     }
 }
 
