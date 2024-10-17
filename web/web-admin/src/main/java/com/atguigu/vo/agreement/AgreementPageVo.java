@@ -1,6 +1,5 @@
 package com.atguigu.vo.agreement;
 
-import com.atguigu.entity.LeaseTerm;
 import com.atguigu.vo.BaseVo;
 import com.atguigu.vo.apartment.ApartmentItemVo;
 import com.atguigu.vo.leaseTerm.LeaseTermSearchVo;

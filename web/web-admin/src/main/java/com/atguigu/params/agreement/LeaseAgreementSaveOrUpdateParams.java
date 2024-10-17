@@ -1,11 +1,10 @@
 package com.atguigu.params.agreement;
 
+import com.atguigu.entity.LeaseAgreement;
 import com.atguigu.vo.BaseParams;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -16,6 +15,7 @@ import java.util.Date;
  * @CreateTime: 2024/10/14
  **/
 @Data
+@Schema(description = "租赁协议保存或更新参数")
 public class LeaseAgreementSaveOrUpdateParams extends BaseParams {
 
     /**
@@ -55,7 +55,7 @@ public class LeaseAgreementSaveOrUpdateParams extends BaseParams {
     private Long roomId;
 
     /**
-     * 租约开始日期
+     * 租约开始日期.
      */
     @Schema(description = "租约开始日期")
     private Date leaseStartDate;
@@ -91,13 +91,13 @@ public class LeaseAgreementSaveOrUpdateParams extends BaseParams {
     private Long paymentTypeId;
 
     /**
-     * 租约状态（1:签约待确认，2:已签约，3:已取消，4:已到期，5:退租待确认，6:已退租，7:续约待确认）
+     * 租约状态（1:签约待确认，2:已签约，3:已取消，4:已到期，5:退租待确认，6:已退租，7:续约待确认）.
      */
     @Schema(description = "租约状态")
     private Integer status;
 
     /**
-     * 租约来源（1:新签，2:续约）
+     * 租约来源（1:新签，2:续约）.
      */
     @Schema(description = "租约来源")
     private Integer sourceType;
@@ -107,5 +107,20 @@ public class LeaseAgreementSaveOrUpdateParams extends BaseParams {
      */
     @Schema(description = "备注信息")
     private String additionalInfo;
+
+    /**
+     * 租赁协议参数转换为实体类
+     *
+     * @param params 租赁协议保存或更新参数
+     * @return 租赁协议实体
+     */
+    public static LeaseAgreement convertToEntity(final LeaseAgreementSaveOrUpdateParams params) {
+        if (params == null) {
+            return null;
+        }
+        LeaseAgreement leaseAgreement = new LeaseAgreement();
+        BeanUtils.copyProperties(params, leaseAgreement);
+        return leaseAgreement;
+    }
 
 }

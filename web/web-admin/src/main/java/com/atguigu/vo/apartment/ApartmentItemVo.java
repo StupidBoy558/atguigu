@@ -1,8 +1,10 @@
 package com.atguigu.vo.apartment;
 
+import com.atguigu.entity.ApartmentInfo;
 import com.atguigu.vo.BaseVo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 /**
  * @Description: 公寓信息VO.
@@ -97,4 +99,15 @@ public class ApartmentItemVo extends BaseVo {
     @Schema(description = "是否发布")
     private Integer isRelease;
 
+    /**
+     * 公寓信息vo.
+     *
+     * @param apartmentInfo 公寓信息
+     * @return 公寓信息vo
+     */
+    public static ApartmentItemVo convertToVo(ApartmentInfo apartmentInfo) {
+        ApartmentItemVo apartmentItemVo = new ApartmentItemVo();
+        BeanUtils.copyProperties(apartmentInfo, apartmentItemVo);
+        return apartmentItemVo;
+    }
 }

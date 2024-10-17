@@ -28,10 +28,10 @@ public interface LeaseAgreementService extends IService<LeaseAgreement> {
     /**
      * 分页查询租约信息.
      *
-     * @param params 分页查询租约信息参数
+     * @param pageData 分页查询租约信息参数
      * @return 分页查询租约信息结果
      */
-    IPage<AgreementPageVo> agreementPageItem(AgreementPageParams params);
+    IPage<AgreementPageVo> agreementPageItem(AgreementPageParams pageData);
 
     /**
      * 根据ID查询租约信息.

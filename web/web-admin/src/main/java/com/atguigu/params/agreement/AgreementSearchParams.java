@@ -2,6 +2,7 @@ package com.atguigu.params.agreement;
 
 import com.atguigu.vo.BaseParams;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -16,6 +17,7 @@ public class AgreementSearchParams extends BaseParams {
     /**
      * 租赁协议ID.
      */
+    @NotNull
     @Schema(description = "租赁协议ID")
     private Long id;
 }

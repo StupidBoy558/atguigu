@@ -56,23 +56,21 @@ public class LeaseAgreementController {
 
     /**
      * 租约分页列表.
-     *
-     * @param params 查询参数
+     * @param pageData 查询参数
      * @return 租约分页列表
      */
     @Operation(summary = "租约分页列表")
     @PostMapping("/page")
     public ResponseData<IPage<AgreementPageVo>> agreementPageItem(
-            @RequestBody @Validated final AgreementPageParams params) {
+            @RequestBody @Validated final AgreementPageParams pageData) {
 
-        log.info("租约分页列表: {}", params);
-        IPage<AgreementPageVo> page = agreementService.agreementPageItem(params);
+        log.info("租约分页列表: {}", pageData);
+        IPage<AgreementPageVo> page = agreementService.agreementPageItem(pageData);
         return ResponseData.ok(page);
     }
 
     /**
      * 根据ID查询租约信息.
-     *
      * @param params 查询参数
      * @return 租约信息
      */

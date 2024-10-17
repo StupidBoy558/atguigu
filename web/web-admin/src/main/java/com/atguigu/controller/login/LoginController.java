@@ -49,7 +49,6 @@ public class LoginController {
             log.error("验证码获取失败");
             return ResponseData.fail();
         }
-        log.info("验证码获取成功: {}", captcha);
         return ResponseData.ok(captcha);
     }
 

@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +56,7 @@ public class RegionInfoController {
      * @return 省份信息列表
      */
     @Operation(summary = "查询省份信息列表")
-    @PostMapping("province/list")
+    @GetMapping("province/list")
     public ResponseData<List<ProvinceInfoVo>> listProvince() {
 
         log.info("Request received for listProvince");

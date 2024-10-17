@@ -6,7 +6,6 @@ import com.atguigu.vo.apartment.GraphVo;
 import com.atguigu.vo.attribute.AttrValueListVo;
 import com.atguigu.vo.facilityInfo.FacilityInfoListVo;
 import com.atguigu.vo.labelInfo.LabelInfoListVo;
-import com.atguigu.vo.leaseTerm.LeaseAgreementListVo;
 import com.atguigu.vo.leaseTerm.LeaseTermListVo;
 import com.atguigu.vo.paymentType.PaymentTypeListVo;
 import io.swagger.v3.oas.annotations.media.Schema;

@@ -1,5 +1,6 @@
 package com.atguigu.vo.agreement;
 
+import com.atguigu.entity.LeaseAgreement;
 import com.atguigu.vo.BaseVo;
 import com.atguigu.vo.apartment.ApartmentItemVo;
 import com.atguigu.vo.leaseTerm.LeaseTermSearchVo;
@@ -7,6 +8,7 @@ import com.atguigu.vo.paymentType.PaymentTypeSearchVo;
 import com.atguigu.vo.room.RoomInfoItemVo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -132,4 +134,16 @@ public class AgreementSearchVo extends BaseVo {
      */
     @Schema(description = "租期")
     private LeaseTermSearchVo leaseTerm;
+
+    /**
+     * 将LeaseAgreement转换为AgreementSearchVo.
+     *
+     * @param leaseAgreement 租约信息
+     * @return 租约查询Vo
+     */
+    public static AgreementSearchVo convertToVo(final LeaseAgreement leaseAgreement) {
+        AgreementSearchVo agreementSearchVo = new AgreementSearchVo();
+        BeanUtils.copyProperties(leaseAgreement, agreementSearchVo);
+        return agreementSearchVo;
+    }
 }
