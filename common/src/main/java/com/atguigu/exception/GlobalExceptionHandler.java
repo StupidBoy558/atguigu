@@ -43,14 +43,14 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResponseData handle(final RuntimeException e) {
         log.error("RuntimeException: ", e);
-        return ResponseData.fail(ResultCodeEnum.REPEAT_SUBMIT.getCode(), e.getMessage());
+        return ResponseData.fail(ResultCodeEnum.REPEAT_SUBMIT.getCode(), "");
     }
 
     @ExceptionHandler(LeaseException.class)
     @ResponseBody
     public ResponseData handle(final LeaseException e) {
         log.error("LeaseException: ", e);
-        return ResponseData.fail(e.getCode(), e.getMessage());
+        return ResponseData.fail(e.getCode(), "");
     }
 
 }

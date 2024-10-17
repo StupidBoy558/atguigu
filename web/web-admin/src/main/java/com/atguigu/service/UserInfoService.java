@@ -9,18 +9,18 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
 * @author wf_wj
-* @description 针对表【user_info(用户信息表)】的数据库操作Service
-* @createDate 2024-09-16 22:26:49
+ * @description: 针对表【user_info(用户信息表)】的数据库操作Service
+ * @createDate: 2024-09-16 22:26:49
 */
 public interface UserInfoService extends IService<UserInfo> {
 
     /**
      * 分页查询用户信息.
      *
-     * @param params 分页查询参数
+     * @param pageData 分页查询参数
      * @return 用户信息分页列表
      */
-    IPage<UserInfoPageVo> pageUserInfo(final UserInfoPageParams params);
+    IPage<UserInfoPageVo> pageList(UserInfoPageParams pageData);
 
     /**
      * 根据用户id更新账号状态.

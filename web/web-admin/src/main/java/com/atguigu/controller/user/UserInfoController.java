@@ -1,6 +1,5 @@
 package com.atguigu.controller.user;
 
-import com.atguigu.entity.UserInfo;
 import com.atguigu.params.user.UserInfoPageParams;
 import com.atguigu.params.user.UserUpdateStatusParams;
 import com.atguigu.result.ResponseData;
@@ -38,16 +37,16 @@ public class UserInfoController {
     /**
      * 分页查询用户信息.
      *
-     * @param params 分页查询参数
+     * @param pageData 分页查询参数
      * @return 用户信息分页数据
      */
     @PostMapping("/page")
     @Operation(summary = "分页查询用户信息")
     public ResponseData<IPage<UserInfoPageVo>> pageUserInfo(
-            @RequestBody @Validated final UserInfoPageParams params) {
+            @RequestBody @Validated final UserInfoPageParams pageData) {
 
-        log.info("分页查询用户信息:{}", params);
-        return ResponseData.ok(userInfoService.pageUserInfo(params));
+        log.info("分页查询用户信息:{}", pageData);
+        return ResponseData.ok(userInfoService.pageList(pageData));
     }
 
     /**
