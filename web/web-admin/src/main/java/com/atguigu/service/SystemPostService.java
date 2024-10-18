@@ -24,21 +24,19 @@ public interface SystemPostService extends IService<SystemPost> {
     /**
      * 分页查询岗位信息.
      *
-     * @param params 分页查询参数
+     * @param pageData 分页查询参数
      * @return 岗位信息分页数据
      */
-    IPage<SystemPostPageVo> systemPageItem(SystemPostPageParams params);
+    IPage<SystemPostPageVo> systemPageItem(SystemPostPageParams pageData);
 
     /**
      * 新增或修改岗位信息.
-     *
      * @param params 新增或修改岗位信息参数
      */
     void systemPostSaveOrUpdate(SystemPostSaveOrUdpateParams params);
 
     /**
      * 根据id删除岗位信息.
-     *
      * @param params 删除岗位信息参数
      */
     void systemPostRemoveById(SystemPostRemoveParams params);

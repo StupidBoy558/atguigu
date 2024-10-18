@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,13 +41,19 @@ public class SystemPostController {
      */
     private final SystemPostService systemPostService;
 
+    /**
+     * 分页查询岗位信息.
+     *
+     * @param pageData 分页查询参数
+     * @return 岗位信息分页数据
+     */
     @Schema(description = "分页查询岗位信息")
     @PostMapping("/page")
     public ResponseData<IPage<SystemPostPageVo>> systemPageItem(
-            @RequestBody @Validated final SystemPostPageParams params) {
+            @RequestBody @Validated final SystemPostPageParams pageData) {
 
-        log.info("分页查询岗位信息:{}", params);
-        return ResponseData.ok(systemPostService.systemPageItem(params));
+        log.info("分页查询岗位信息:{}", pageData);
+        return ResponseData.ok(systemPostService.systemPageItem(pageData));
     }
 
     @Schema(description = "新增或修改岗位信息")
@@ -70,7 +77,7 @@ public class SystemPostController {
     }
 
     @Schema(description = "查询所有岗位信息")
-    @PostMapping("/list")
+    @GetMapping("/list")
     public ResponseData<List<SystemPostListVo>> systemPostList() {
 
         log.info("查询所有岗位信息");

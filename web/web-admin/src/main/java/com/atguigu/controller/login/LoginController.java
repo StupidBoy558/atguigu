@@ -3,6 +3,7 @@ package com.atguigu.controller.login;
 import com.atguigu.login.LoginUserHolder;
 import com.atguigu.params.login.LoginParams;
 import com.atguigu.result.ResponseData;
+import com.atguigu.result.ResultCodeEnum;
 import com.atguigu.service.LoginService;
 import com.atguigu.vo.login.CaptchaVo;
 import com.atguigu.vo.system.SystemUserInfoVo;
@@ -64,6 +65,10 @@ public class LoginController {
     @Operation(summary = "获取登陆用户个人信息")
     @GetMapping("info")
     public ResponseData<SystemUserInfoVo> info() {
+        if (LoginUserHolder.getLoginUser() == null) {
+            return ResponseData.fail(
+                    ResultCodeEnum.ADMIN_ACCOUNT_NOT_EXIST_ERROR.getCode(), "账号不存在");
+        }
         SystemUserInfoVo userInfo =
                 loginService.getLoginUserInfo(LoginUserHolder.getLoginUser().getUserId());
         return ResponseData.ok(userInfo);

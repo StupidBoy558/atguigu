@@ -2,6 +2,7 @@ package com.atguigu.params.system;
 
 import com.atguigu.vo.BaseParams;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -16,6 +17,7 @@ public class SystemUserSearchByIdParams extends BaseParams {
     /**
      * 用户id.
      */
+    @NotNull
     @Schema(description = "用户id")
     private Long id;
 }

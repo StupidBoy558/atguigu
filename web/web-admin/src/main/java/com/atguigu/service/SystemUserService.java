@@ -21,15 +21,13 @@ public interface SystemUserService extends IService<SystemUser> {
 
     /**
      * 分页查询用户信息.
-     *
-     * @param params 查询参数
+     * @param pageData 查询参数
      * @return 用户信息分页列表
      */
-    IPage<SystemUserPageVo> systemPageItem(SystemUserPageParams params);
+    IPage<SystemUserPageVo> systemPageItem(SystemUserPageParams pageData);
 
     /**
      * 根据id查询后台用户信息.
-     *
      * @param params 查询参数
      * @return 用户信息
      */
@@ -37,14 +35,12 @@ public interface SystemUserService extends IService<SystemUser> {
 
     /**
      * 保存或更新用户信息.
-     *
      * @param params
      */
     void systemUserSaveOrUpdate(SystemUserSaveOrUpdateParams params);
 
     /**
      * 根据用户名查询用户信息.
-     *
      * @param params 查询参数
      * @return 用户信息
      */
@@ -52,14 +48,12 @@ public interface SystemUserService extends IService<SystemUser> {
 
     /**
      * 根据id删除用户信息.
-     *
      * @param params 查询参数
      */
     void systemUserRemoveById(SystemUserRemoveByIdParams params);
 
     /**
      * 根据id更新用户状态.
-     *
      * @param params 查询参数
      */
     void updateStatusById(SystemUserUpdateStatusParams params);

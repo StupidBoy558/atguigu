@@ -1,8 +1,10 @@
 package com.atguigu.vo.system;
 
+import com.atguigu.entity.SystemUser;
 import com.atguigu.vo.BaseVo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 /**
  * @Description: 用户信息.
@@ -73,4 +75,21 @@ public class SystemUserItemVo extends BaseVo {
     @Schema(description = "岗位名称")
     private String postName;
 
+    /**
+     * 账号状态
+     */
+    @Schema(description = "账号状态")
+    private Integer status;
+
+    /**
+     * 转换为vo对象.
+     *
+     * @param systemUser 用户信息
+     * @return 用户信息
+     */
+    public static SystemUserItemVo convertToVo(SystemUser systemUser) {
+        SystemUserItemVo systemUserItemVo = new SystemUserItemVo();
+        BeanUtils.copyProperties(systemUser, systemUserItemVo);
+        return systemUserItemVo;
+    }
 }

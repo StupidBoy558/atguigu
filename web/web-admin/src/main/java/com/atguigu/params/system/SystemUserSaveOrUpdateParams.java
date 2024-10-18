@@ -1,8 +1,10 @@
 package com.atguigu.params.system;
 
+import com.atguigu.entity.SystemUser;
 import com.atguigu.vo.BaseParams;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 /**
  * @Description: 保存或更新后台用户信息请求体.
@@ -72,5 +74,15 @@ public class SystemUserSaveOrUpdateParams extends BaseParams {
     @Schema(description = "账号状态")
     private Integer status;
 
-
+    /**
+     * 转换为实体类.
+     *
+     * @param params 请求参数
+     * @return SystemUser
+     */
+    public static SystemUser convertToEntity(SystemUserSaveOrUpdateParams params) {
+        SystemUser systemUser = new SystemUser();
+        BeanUtils.copyProperties(params, systemUser);
+        return systemUser;
+    }
 }

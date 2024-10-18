@@ -3,6 +3,7 @@ package com.atguigu.params.system;
 import com.atguigu.enums.BaseStatus;
 import com.atguigu.vo.BaseParams;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -17,12 +18,14 @@ public class SystemUserUpdateStatusParams extends BaseParams {
     /**
      * 用户id.
      */
+    @NotNull
     @Schema(description = "用户id")
     private Long id;
 
     /**
      * 用户状态.
      */
+    @NotNull
     @Schema(description = "用户状态")
     private BaseStatus status;
 }

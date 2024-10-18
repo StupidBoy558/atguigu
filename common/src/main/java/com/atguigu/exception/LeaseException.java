@@ -15,8 +15,10 @@ public class LeaseException extends RuntimeException {
 
     private Integer code;
 
+    private String message;
+
     public LeaseException(Integer code, String message) {
-        super(message);
+        this.message = message;
         this.code = code;
     }
 

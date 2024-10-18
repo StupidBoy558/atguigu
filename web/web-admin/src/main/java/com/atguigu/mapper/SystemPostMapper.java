@@ -1,7 +1,10 @@
 package com.atguigu.mapper;
 
 import com.atguigu.entity.SystemPost;
+import com.atguigu.vo.system.SystemPostPageVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 /**
 * @author wf_wj
@@ -11,6 +14,13 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface SystemPostMapper extends BaseMapper<SystemPost> {
 
+    /**
+     * 分页查询岗位信息.
+     *
+     * @param page 分页查询参数
+     * @return 岗位信息分页数据
+     */
+    IPage<SystemPostPageVo> pageList(Page<SystemPost> page);
 }
 
 

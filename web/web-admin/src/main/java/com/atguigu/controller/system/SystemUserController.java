@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,12 +41,12 @@ public class SystemUserController {
     private final SystemUserService systemUserService;
 
     @Schema(description = "分页查询用户信息")
-    @PostMapping("/page")
+    @GetMapping("/page")
     public ResponseData<IPage<SystemUserPageVo>> systemPageItem(
-            @RequestBody @Validated final SystemUserPageParams params) {
+            @RequestBody @Validated final SystemUserPageParams pageData) {
 
-        log.info("分页查询用户信息:{}", params);
-        return ResponseData.ok(systemUserService.systemPageItem(params));
+        log.info("分页查询用户信息:{}", pageData);
+        return ResponseData.ok(systemUserService.systemPageItem(pageData));
     }
 
     @Schema(description = "根据id查询后台用户信息")

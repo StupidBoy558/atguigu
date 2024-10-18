@@ -73,5 +73,10 @@ public class SystemUserPageVo extends BaseVo {
     @Schema(description = "岗位名称")
     private String postName;
 
+    /**
+     * 账号状态
+     */
+    @Schema(description = "账号状态")
+    private Integer status;
 
 }

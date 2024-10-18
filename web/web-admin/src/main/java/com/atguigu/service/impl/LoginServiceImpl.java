@@ -102,7 +102,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public SystemUserInfoVo getLoginUserInfo(Long userId) {
+    public SystemUserInfoVo getLoginUserInfo(final Long userId) {
         SystemUser systemUser = systemUserMapper.selectById(userId);
         SystemUserInfoVo systemUserInfoVo = new SystemUserInfoVo();
         systemUserInfoVo.setName(systemUser.getName());

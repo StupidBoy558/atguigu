@@ -10,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,7 +51,8 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResponseData handle(final LeaseException e) {
         log.error("LeaseException: ", e);
-        return ResponseData.fail(e.getCode(), "");
+        return ResponseData.fail(ResultCodeEnum.DATA_ERROR.getCode(), "Unknown error");
     }
+
 
 }
