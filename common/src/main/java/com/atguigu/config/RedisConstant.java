@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * @CreateTime: 2024/10/15
  **/
 @Component
-public class RedisConfig {
+public class RedisConstant {
 
     public static final String ADMIN_LOGIN_PREFIX = "admin:login:";
     public static final Integer ADMIN_LOGIN_CAPTCHA_TTL_SEC = 60;

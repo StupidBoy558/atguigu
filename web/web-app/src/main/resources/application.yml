@@ -17,9 +17,21 @@ spring:
       pool-name: SPHHikariPool # 连接池名称
   jackson:
       time-zone: GMT+8
+  data:
+    redis:
+      host: 47.99.60.249
+      port: 6379
+      database: 0
 
 springdoc:
   default-flat-param-object: true
+
+# 阿里云-短信服务
+aliyun:
+  sms:
+    access-key-id: LTAI5tLDK4h2onuwB7EWsg1D
+    access-key-secret: nXZsxQcchOimGp8HGNIVFaM40Rhi5I
+    endpoint: dysmsapi.aliyuncs.com
 
 #minio:
 #  endpoint: http://47.99.60.249:9000

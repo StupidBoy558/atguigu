@@ -1,6 +1,6 @@
 package com.atguigu.service.impl;
 
-import com.atguigu.config.RedisConfig;
+import com.atguigu.config.RedisConstant;
 import com.atguigu.entity.SystemUser;
 import com.atguigu.enums.BaseStatus;
 import com.atguigu.exception.LeaseException;
@@ -49,9 +49,9 @@ public class LoginServiceImpl implements LoginService {
         specCaptcha.setCharType(Captcha.TYPE_DEFAULT);
 
         String code = specCaptcha.text().toLowerCase();
-        String key = RedisConfig.ADMIN_LOGIN_PREFIX + UUID.randomUUID();
+        String key = RedisConstant.ADMIN_LOGIN_PREFIX + UUID.randomUUID();
         String image = specCaptcha.toBase64();
-        redisTemplate.opsForValue().set(key, code, RedisConfig.ADMIN_LOGIN_CAPTCHA_TTL_SEC, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(key, code, RedisConstant.ADMIN_LOGIN_CAPTCHA_TTL_SEC, TimeUnit.SECONDS);
 
         return new CaptchaVo(image, key);
     }
