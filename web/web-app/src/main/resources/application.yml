@@ -21,11 +21,11 @@ spring:
 springdoc:
   default-flat-param-object: true
 
-minio:
-  endpoint: http://47.99.60.249:9000
-  access-key: root
-  secret-key: Dansheng@2024
-  bucket-name: lease
+#minio:
+#  endpoint: http://47.99.60.249:9000
+#  access-key: root
+#  secret-key: Dansheng@2024
+#  bucket-name: lease
 
 #用于打印框架生成的sql语句，便于调试
 mybatis-plus:
