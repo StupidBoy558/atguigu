@@ -1,6 +1,10 @@
 package com.atguigu.service;
 
 import com.atguigu.entity.RoomInfo;
+import com.atguigu.pojo.vo.room.RoomItemVo;
+import com.atguigu.pojo.vo.room.RoomQueryVo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -10,4 +14,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface RoomInfoService extends IService<RoomInfo> {
 
+    /**
+     * 分页查询房间列表.
+     *
+     * @param page    分页对象
+     * @param queryVo 查询条件
+     * @return IPage<RoomItemVo> 分页对象
+     */
+    IPage<RoomItemVo> pageList(Page<RoomItemVo> page, RoomQueryVo queryVo);
 }

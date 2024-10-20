@@ -21,4 +21,8 @@
         apartment_id,is_release,create_time,
         update_time,is_deleted
     </sql>
+
+    <select id="pageList" resultType="com.atguigu.pojo.vo.room.RoomItemVo">
+
+    </select>
 </mapper>

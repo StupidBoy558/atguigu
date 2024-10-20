@@ -5,6 +5,7 @@ import com.atguigu.entity.UserInfo;
 import com.atguigu.enums.BaseStatus;
 import com.atguigu.exception.LeaseException;
 import com.atguigu.pojo.vo.user.LoginVo;
+import com.atguigu.pojo.vo.user.UserInfoVo;
 import com.atguigu.result.ResultCodeEnum;
 import com.atguigu.service.LoginService;
 import com.atguigu.service.SmsService;
@@ -13,6 +14,7 @@ import com.atguigu.utils.VerifyCodeUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -107,5 +109,16 @@ public class LoginServiceImpl implements LoginService {
 
         //5.创建并返回TOKEN
         return JwtUtil.createToken(userInfo.getId(), loginVo.getPhone());
+    }
+
+    @Override
+    public UserInfoVo getUserInfoById(final Long userId) {
+
+        UserInfo userInfo = userInfoService.getById(userId);
+        if (userInfo != null) {
+            return new UserInfoVo(userInfo.getNickname(), userInfo.getAvatarUrl());
+        }
+        throw new LeaseException(
+                ResultCodeEnum.ADMIN_ACCOUNT_NOT_EXIST_ERROR.getCode(), "用户不存在");
     }
 }

@@ -1,6 +1,7 @@
 package com.atguigu.controller.login;
 
 
+import com.atguigu.login.LoginUserHolder;
 import com.atguigu.pojo.vo.user.LoginVo;
 import com.atguigu.pojo.vo.user.UserInfoVo;
 import com.atguigu.result.ResponseData;
@@ -35,7 +36,10 @@ public class LoginController {
     @GetMapping("info")
     @Operation(summary = "获取登录用户信息")
     public ResponseData<UserInfoVo> info() {
-        return ResponseData.ok();
+        UserInfoVo userInfo = loginService.getUserInfoById(
+                LoginUserHolder.getLoginUser().getUserId());
+
+        return ResponseData.ok(userInfo);
     }
 }
 

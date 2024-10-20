@@ -2,6 +2,7 @@ package com.atguigu.service;
 
 
 import com.atguigu.pojo.vo.user.LoginVo;
+import com.atguigu.pojo.vo.user.UserInfoVo;
 
 /**
  * @Description: 登录服务.
@@ -24,4 +25,12 @@ public interface LoginService {
      * @return token
      */
     String login(LoginVo loginVo);
+
+    /**
+     * 获取用户信息.
+     *
+     * @param userId 用户ID
+     * @return 用户信息
+     */
+    UserInfoVo getUserInfoById(Long userId);
 }
