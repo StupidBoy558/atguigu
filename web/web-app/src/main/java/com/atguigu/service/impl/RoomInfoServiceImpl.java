@@ -7,6 +7,7 @@ import com.atguigu.entity.LeaseTerm;
 import com.atguigu.entity.PaymentType;
 import com.atguigu.enums.ItemType;
 import com.atguigu.exception.LeaseException;
+import com.atguigu.login.LoginUserHolder;
 import com.atguigu.pojo.vo.apartment.ApartmentItemVo;
 import com.atguigu.pojo.vo.attr.AttrValueVo;
 import com.atguigu.pojo.vo.fee.FeeValueVo;
@@ -17,6 +18,7 @@ import com.atguigu.pojo.vo.room.RoomQueryVo;
 import com.atguigu.result.ResultCodeEnum;
 import com.atguigu.service.ApartmentInfoService;
 import com.atguigu.service.AttrValueService;
+import com.atguigu.service.BrowsingHistoryService;
 import com.atguigu.service.FacilityInfoService;
 import com.atguigu.service.FeeValueService;
 import com.atguigu.service.GraphInfoService;
@@ -47,23 +49,55 @@ import java.util.List;
 public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
         implements RoomInfoService {
 
+    /**
+     * 房间信息Mapper.
+     */
     private final RoomInfoMapper roomInfoMapper;
 
+    /**
+     * 公寓信息Service.
+     */
     private final ApartmentInfoService apartmentInfoService;
 
+    /**
+     * 图片信息Service.
+     */
     private final GraphInfoService graphInfoService;
 
+    /**
+     * 属性值Service.
+     */
     private final AttrValueService attrValueService;
 
+    /**
+     * 配套信息Service.
+     */
     private final FacilityInfoService facilityInfoService;
 
+    /**
+     * 标签信息Service.
+     */
     private final LabelInfoService labelInfoService;
 
+    /**
+     * 支付方式Service.
+     */
     private final PaymentTypeService paymentTypeService;
 
+    /**
+     * 杂费Service.
+     */
     private final FeeValueService feeValueService;
 
+    /**
+     * 租期Service.
+     */
     private final LeaseTermService leaseTermService;
+
+    /**
+     * 浏览历史Service.
+     */
+    private final BrowsingHistoryService browsingHistoryService;
 
     /**
      * 分页查询房间列表.
@@ -121,6 +155,10 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
         roomDetailVo.setPaymentTypeList(paymentTypeList);
         roomDetailVo.setFeeValueVoList(feeValueVoList);
         roomDetailVo.setLeaseTermList(leaseTermList);
+
+        // 保存浏览历史
+        Long userId = LoginUserHolder.getLoginUser().getUserId();
+        browsingHistoryService.saveBrowsingHistory(roomInfo.getId(), userId);
 
         return roomDetailVo;
     }

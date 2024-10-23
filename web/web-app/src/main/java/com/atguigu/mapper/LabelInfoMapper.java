@@ -21,6 +21,14 @@ public interface LabelInfoMapper extends BaseMapper<LabelInfo> {
      * @return List<LabelInfo> 标签信息
      */
     List<LabelInfo> getLabelInfoByRoomId(@Param("id") Long id);
+
+    /**
+     * 根据公寓id获取标签信息.
+     *
+     * @param id 公寓id
+     * @return List<LabelInfo> 标签信息
+     */
+    List<LabelInfo> getLabelInfoByApartmentId(@Param("id") Long id);
 }
 
 

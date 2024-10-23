@@ -34,4 +34,11 @@
         status,source_type,additional_info,
         create_time,update_time,is_deleted
     </sql>
+
+    <select id="getMinRentByApartmentId" resultType="java.math.BigDecimal">
+        select min(rent) as min_rent
+        from lease_agreement
+        where apartment_id = #{id}
+          and is_deleted = 0
+    </select>
 </mapper>

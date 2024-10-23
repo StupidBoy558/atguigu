@@ -1,7 +1,12 @@
 package com.atguigu.mapper;
 
 import com.atguigu.entity.ViewAppointment;
+import com.atguigu.pojo.vo.appointment.AppointmentDetailVo;
+import com.atguigu.pojo.vo.appointment.AppointmentItemVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author wf_wj
@@ -11,6 +16,13 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface ViewAppointmentMapper extends BaseMapper<ViewAppointment> {
 
+    /**
+     * 查询个人预约看房列表
+     *
+     * @param userId 用户id
+     * @return List<AppointmentItemVo>
+     */
+    List<AppointmentItemVo> listItemByUserId(@Param("id") Long userId);
 }
 
 

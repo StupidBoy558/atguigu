@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.atguigu.entity.LeaseAgreement;
 import com.atguigu.service.LeaseAgreementService;
 import com.atguigu.mapper.LeaseAgreementMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 /**
  * @author wf_wj
@@ -12,9 +15,17 @@ import org.springframework.stereotype.Service;
  * @createDate 2024-10-19 09:50:34
  */
 @Service
+@RequiredArgsConstructor
 public class LeaseAgreementServiceImpl extends ServiceImpl<LeaseAgreementMapper, LeaseAgreement>
         implements LeaseAgreementService {
 
+    private final LeaseAgreementMapper leaseAgreementMapper;
+
+    @Override
+    public BigDecimal getMinRentByApartmentId(Long id) {
+
+        return leaseAgreementMapper.getMinRentByApartmentId(id);
+    }
 }
 
 

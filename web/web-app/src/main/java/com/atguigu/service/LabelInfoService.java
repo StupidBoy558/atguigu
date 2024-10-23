@@ -14,9 +14,16 @@ public interface LabelInfoService extends IService<LabelInfo> {
 
     /**
      * 根据房间id获取标签信息.
-     *
      * @param id 房间id
      * @return List<LabelInfo> 标签信息
      */
     List<LabelInfo> getLabelInfoByRoomId(Long id);
+
+    /**
+     * 根据公寓id获取标签信息.
+     *
+     * @param id 公寓id
+     * @return List<LabelInfo> 标签信息
+     */
+    List<LabelInfo> getLabelInfoByApartmentId(Long id);
 }

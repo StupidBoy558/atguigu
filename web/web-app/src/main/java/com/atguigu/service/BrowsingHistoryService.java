@@ -1,6 +1,9 @@
 package com.atguigu.service;
 
 import com.atguigu.entity.BrowsingHistory;
+import com.atguigu.pojo.vo.history.HistoryItemVo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -10,4 +13,20 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface BrowsingHistoryService extends IService<BrowsingHistory> {
 
+    /**
+     * 分页查询浏览历史
+     *
+     * @param page   分页对象
+     * @param userId 用户ID
+     * @return IPage<HistoryItemVo>
+     */
+    IPage<HistoryItemVo> pageItem(Page<HistoryItemVo> page, Long userId);
+
+    /**
+     * 保存浏览历史
+     *
+     * @param roomId 浏览历史ID
+     * @param userId 用户ID
+     */
+    void saveBrowsingHistory(Long roomId, Long userId);
 }

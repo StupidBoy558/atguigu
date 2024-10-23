@@ -26,6 +26,12 @@ public class LabelInfoServiceImpl extends ServiceImpl<LabelInfoMapper, LabelInfo
 
         return labelInfoMapper.getLabelInfoByRoomId(id);
     }
+
+    @Override
+    public List<LabelInfo> getLabelInfoByApartmentId(Long id) {
+
+        return labelInfoMapper.getLabelInfoByApartmentId(id);
+    }
 }
 
 

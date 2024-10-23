@@ -4,6 +4,7 @@ import com.atguigu.entity.ApartmentInfo;
 import com.atguigu.pojo.vo.apartment.ApartmentDetailVo;
 import com.atguigu.pojo.vo.apartment.ApartmentItemVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @author wf_wj
@@ -19,7 +20,15 @@ public interface ApartmentInfoMapper extends BaseMapper<ApartmentInfo> {
      * @param apartmentId 公寓id
      * @return ApartmentItemVo 公寓详细信息
      */
-    ApartmentItemVo getItemVoById(Long apartmentId);
+    ApartmentItemVo getItemVoById(@Param("id") Long apartmentId);
+
+    /**
+     * 根据id获取公寓的详细信息.
+     *
+     * @param id 公寓id
+     * @return ApartmentDetailVo 公寓详细信息
+     */
+    ApartmentDetailVo getDetailById(@Param("id") Long id);
 }
 
 

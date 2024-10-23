@@ -3,6 +3,8 @@ package com.atguigu.service;
 import com.atguigu.entity.LeaseAgreement;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.math.BigDecimal;
+
 /**
  * @author wf_wj
  * @description 针对表【lease_agreement(租约信息表)】的数据库操作Service
@@ -10,4 +12,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface LeaseAgreementService extends IService<LeaseAgreement> {
 
+    /**
+     * 根据公寓id获取最小租金.
+     *
+     * @param id 公寓id
+     * @return BigDecimal 最小租金
+     */
+    BigDecimal getMinRentByApartmentId(Long id);
 }

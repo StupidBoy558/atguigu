@@ -1,7 +1,11 @@
 package com.atguigu.service;
 
 import com.atguigu.entity.ViewAppointment;
+import com.atguigu.pojo.vo.appointment.AppointmentDetailVo;
+import com.atguigu.pojo.vo.appointment.AppointmentItemVo;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * @author wf_wj
@@ -10,4 +14,19 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ViewAppointmentService extends IService<ViewAppointment> {
 
+    /**
+     * 保存或更新看房预约.
+     *
+     * @param userId 用户id
+     * @return AppointmentItemVo
+     */
+    List<AppointmentItemVo> listItemByUserId(Long userId);
+
+    /**
+     * 根据ID查询预约详情信息.
+     *
+     * @param id 预约id
+     * @return AppointmentDetailVo
+     */
+    AppointmentDetailVo getDetailById(Long id);
 }

@@ -8,6 +8,7 @@ import com.atguigu.pojo.vo.agreement.AgreementItemVo;
 import com.atguigu.result.ResponseData;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/app/agreement")
 @Tag(name = "租约信息")
+@RequiredArgsConstructor
 public class LeaseAgreementController {
 
     @Operation(summary = "获取个人租约基本信息列表")

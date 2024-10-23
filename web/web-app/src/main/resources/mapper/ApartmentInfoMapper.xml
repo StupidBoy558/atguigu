@@ -85,5 +85,24 @@
                      where is_deleted = 0
                        and apartment_id = #{id})
     </select>
+    <select id="getDetailById" resultType="com.atguigu.pojo.vo.apartment.ApartmentDetailVo">
+        select id,
+               name,
+               introduction,
+               district_id,
+               district_name,
+               city_id,
+               city_name,
+               province_id,
+               province_name,
+               address_detail,
+               latitude,
+               longitude,
+               phone,
+               is_release
+        from apartment_info
+        where id = #{id}
+          and is_deleted = 0
+    </select>
 
 </mapper>

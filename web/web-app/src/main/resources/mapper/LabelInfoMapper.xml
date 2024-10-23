@@ -28,4 +28,13 @@
           and is_deleted = 0
 
     </select>
+    <select id="getLabelInfoByApartmentId" resultType="com.atguigu.entity.LabelInfo">
+        select id, type, name
+        from label_info
+        where id in (select label_id
+                     from apartment_label
+                     where apartment_id = #{id}
+                       and is_deleted = 0)
+          and is_deleted = 0
+    </select>
 </mapper>
