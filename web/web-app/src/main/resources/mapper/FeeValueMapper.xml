@@ -20,4 +20,19 @@
         fee_key_id,create_time,update_time,
         is_deleted
     </sql>
+
+    <select id="getFeeValueByApartmentId" resultType="com.atguigu.pojo.vo.fee.FeeValueVo">
+        select fv.id,
+               fv.name,
+               fv.unit,
+               fv.fee_key_id,
+               fk.name as fee_key_name
+        from fee_value fv
+                 inner join fee_key fk on fv.fee_key_id = fk.id and fk.is_deleted = 0
+        where fv.id in (select fee_value_id
+                        from apartment_fee_value
+                        where apartment_id = #{id}
+                          and is_deleted = 0)
+
+    </select>
 </mapper>

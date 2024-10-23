@@ -1,10 +1,14 @@
 package com.atguigu.service.impl;
 
+import com.atguigu.pojo.vo.attr.AttrValueVo;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.atguigu.entity.AttrValue;
 import com.atguigu.service.AttrValueService;
 import com.atguigu.mapper.AttrValueMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author wf_wj
@@ -12,9 +16,16 @@ import org.springframework.stereotype.Service;
  * @createDate 2024-10-19 09:50:34
  */
 @Service
+@RequiredArgsConstructor
 public class AttrValueServiceImpl extends ServiceImpl<AttrValueMapper, AttrValue>
         implements AttrValueService {
 
+    private final AttrValueMapper attrValueMapper;
+
+    @Override
+    public List<AttrValueVo> getAttrValueVoByRoomId(Long id) {
+        return attrValueMapper.getAttrValueVoByRoomId(id);
+    }
 }
 
 

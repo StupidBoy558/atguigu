@@ -2,6 +2,9 @@ package com.atguigu.mapper;
 
 import com.atguigu.entity.LeaseTerm;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author wf_wj
@@ -11,6 +14,13 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface LeaseTermMapper extends BaseMapper<LeaseTerm> {
 
+    /**
+     * 根据房间id查询租期.
+     *
+     * @param id 房间id
+     * @return List<LeaseTerm> 租期列表
+     */
+    List<LeaseTerm> getLeaseTermByRoomId(@Param("id") Long id);
 }
 
 

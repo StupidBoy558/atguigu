@@ -33,4 +33,57 @@
         phone,is_release,create_time,
         update_time,is_deleted
     </sql>
+
+    <resultMap id="getItemVoMap" type="com.atguigu.pojo.vo.apartment.ApartmentItemVo" autoMapping="true">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="minRent" column="min_rent" jdbcType="DECIMAL"/>
+
+        <collection property="labelInfoList" ofType="com.atguigu.entity.LabelInfo"
+                    select="getLabelInfoList" column="id"/>
+
+        <collection property="graphVoList" ofType="com.atguigu.pojo.vo.graph.GraphVo"
+                    select="getGraphList" column="id"/>
+
+    </resultMap>
+
+    <select id="getItemVoById" resultMap="getItemVoMap">
+        select ai.id,
+               ai.name,
+               ai.introduction,
+               ai.district_id,
+               ai.district_name,
+               ai.city_id,
+               ai.city_name,
+               ai.province_id,
+               ai.province_name,
+               ai.address_detail,
+               ai.latitude,
+               ai.longitude,
+               ai.phone,
+               ai.is_release,
+               min(rent) as min_rent
+        from apartment_info ai
+                 left join lease_agreement la on ai.id = apartment_id and la.is_deleted = 0
+        where ai.id = #{id}
+          and ai.is_deleted = 0
+    </select>
+
+    <select id="getGraphList" resultType="com.atguigu.pojo.vo.graph.GraphVo">
+        select name, url
+        from graph_info
+        where is_deleted = 0
+          and item_type = 1
+          and item_id = #{id}
+    </select>
+
+    <select id="getLabelInfoList" resultType="com.atguigu.entity.LabelInfo">
+        select id, type, name
+        from label_info
+        where is_deleted = 0
+          and id in (select label_id
+                     from apartment_label
+                     where is_deleted = 0
+                       and apartment_id = #{id})
+    </select>
+
 </mapper>

@@ -21,4 +21,12 @@
         item_id,url,create_time,
         update_time,is_deleted
     </sql>
+    <select id="getGraphVoListByItemId" resultType="com.atguigu.pojo.vo.graph.GraphVo">
+        select name,
+               url
+        from graph_info
+        where is_deleted = 0
+          and item_type = #{itemType}
+          and item_id = #{id}
+    </select>
 </mapper>

@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.atguigu.entity.FacilityInfo;
 import com.atguigu.service.FacilityInfoService;
 import com.atguigu.mapper.FacilityInfoMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author wf_wj
@@ -12,9 +15,17 @@ import org.springframework.stereotype.Service;
  * @createDate 2024-10-19 09:50:34
  */
 @Service
+@RequiredArgsConstructor
 public class FacilityInfoServiceImpl extends ServiceImpl<FacilityInfoMapper, FacilityInfo>
         implements FacilityInfoService {
 
+    private final FacilityInfoMapper facilityInfoMapper;
+
+    @Override
+    public List<FacilityInfo> getFacilityInfoByRoomId(Long id) {
+
+        return facilityInfoMapper.getFacilityInfoByRoomId(id);
+    }
 }
 
 

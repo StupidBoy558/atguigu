@@ -43,4 +43,10 @@ public class JwtUtil {
             throw new LeaseException(ResultCodeEnum.TOKEN_INVALID);
         }
     }
+
+    public static void main(String[] args) {
+        String user = createToken(8L, "19050566943");
+        System.out.println(user);
+    }
+
 }

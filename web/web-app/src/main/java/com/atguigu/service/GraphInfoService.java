@@ -1,7 +1,11 @@
 package com.atguigu.service;
 
 import com.atguigu.entity.GraphInfo;
+import com.atguigu.enums.ItemType;
+import com.atguigu.pojo.vo.graph.GraphVo;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * @author wf_wj
@@ -10,4 +14,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface GraphInfoService extends IService<GraphInfo> {
 
+    /**
+     * 根据项目id和项目类型获取图片信息列表.
+     *
+     * @param id       项目id
+     * @param itemType 项目类型
+     * @return List<GraphVo> 图片信息列表
+     */
+    List<GraphVo> getGraphVoListByItemId(Long id, ItemType itemType);
 }

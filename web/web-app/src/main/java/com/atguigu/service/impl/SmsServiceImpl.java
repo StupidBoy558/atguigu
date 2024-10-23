@@ -1,9 +1,9 @@
 package com.atguigu.service.impl;
 
 
+import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.atguigu.service.SmsService;
-import com.atguigu.sms.AliyunSMSConfiguration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SmsServiceImpl implements SmsService {
 
-    private final AliyunSMSConfiguration smsConfiguration;
+    private final Client client;
 
     @Override
     public void sendCode(String phone, String code) {
@@ -22,7 +22,7 @@ public class SmsServiceImpl implements SmsService {
         smsRequest.setTemplateCode("SMS_154950909");
         smsRequest.setTemplateParam("{\"code\":\"" + code + "\"}");
         try {
-            smsConfiguration.smsClient().sendSms(smsRequest);
+            client.sendSms(smsRequest);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

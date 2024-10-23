@@ -24,6 +24,15 @@ public interface RoomInfoMapper extends BaseMapper<RoomInfo> {
      * @return IPage<RoomItemVo> 分页对象
      */
     IPage<RoomItemVo> pageList(Page<RoomItemVo> page, @Param("params") RoomQueryVo queryVo);
+
+    /**
+     * 根据公寓id分页查询房间列表.
+     *
+     * @param page 分页对象
+     * @param id   公寓id
+     * @return IPage<RoomItemVo> 分页对象
+     */
+    IPage<RoomItemVo> pageListByApartmentId(Page<RoomItemVo> page, @Param("id") Long id);
 }
 
 

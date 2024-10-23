@@ -18,4 +18,14 @@
         ,type,name,
         create_time,update_time,is_deleted
     </sql>
+    <select id="getLabelInfoByRoomId" resultType="com.atguigu.entity.LabelInfo">
+        select id, type, name
+        from label_info
+        where id in (select label_id
+                     from room_label
+                     where room_id = #{id}
+                       and is_deleted = 0)
+          and is_deleted = 0
+
+    </select>
 </mapper>

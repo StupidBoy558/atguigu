@@ -2,6 +2,9 @@ package com.atguigu.mapper;
 
 import com.atguigu.entity.FacilityInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author wf_wj
@@ -11,6 +14,13 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface FacilityInfoMapper extends BaseMapper<FacilityInfo> {
 
+    /**
+     * 根据房间id获取配套信息.
+     *
+     * @param id 房间id
+     * @return List<FacilityInfo> 配套信息列表
+     */
+    List<FacilityInfo> getFacilityInfoByRoomId(@Param("id") Long id);
 }
 
 

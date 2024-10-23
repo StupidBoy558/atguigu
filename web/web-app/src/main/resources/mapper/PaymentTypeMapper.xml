@@ -20,4 +20,13 @@
         additional_info,create_time,update_time,
         is_deleted
     </sql>
+    <select id="getPaymentTypeByRoomId" resultType="com.atguigu.entity.PaymentType">
+        select id, name, pay_month_count, additional_info
+        from payment_type
+        where id in (select payment_type.id
+                     from room_payment_type
+                     where room_id = #{id}
+                       and is_deleted = 0)
+          and is_deleted = 0
+    </select>
 </mapper>

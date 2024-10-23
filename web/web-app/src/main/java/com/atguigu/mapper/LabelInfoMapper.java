@@ -2,6 +2,9 @@ package com.atguigu.mapper;
 
 import com.atguigu.entity.LabelInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author wf_wj
@@ -11,6 +14,13 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface LabelInfoMapper extends BaseMapper<LabelInfo> {
 
+    /**
+     * 根据房间id获取标签信息.
+     *
+     * @param id 房间id
+     * @return List<LabelInfo> 标签信息
+     */
+    List<LabelInfo> getLabelInfoByRoomId(@Param("id") Long id);
 }
 
 

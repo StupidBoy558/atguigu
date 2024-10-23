@@ -1,6 +1,8 @@
 package com.atguigu.service;
 
 import com.atguigu.entity.ApartmentInfo;
+import com.atguigu.pojo.vo.apartment.ApartmentDetailVo;
+import com.atguigu.pojo.vo.apartment.ApartmentItemVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -10,4 +12,19 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ApartmentInfoService extends IService<ApartmentInfo> {
 
+    /**
+     * 根据id获取公寓的详细信息.
+     *
+     * @param apartmentId 公寓id
+     * @return ApartmentItemVo 公寓详细信息
+     */
+    ApartmentItemVo getItemVoById(Long apartmentId);
+
+    /**
+     * 根据id获取公寓的详细信息.
+     *
+     * @param id 公寓id
+     * @return ApartmentDetailVo 公寓详细信息
+     */
+    ApartmentDetailVo getDetailById(Long id);
 }

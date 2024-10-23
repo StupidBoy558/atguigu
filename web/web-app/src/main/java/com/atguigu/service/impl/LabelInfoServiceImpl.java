@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.atguigu.entity.LabelInfo;
 import com.atguigu.service.LabelInfoService;
 import com.atguigu.mapper.LabelInfoMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author wf_wj
@@ -12,9 +15,17 @@ import org.springframework.stereotype.Service;
  * @createDate 2024-10-19 09:50:34
  */
 @Service
+@RequiredArgsConstructor
 public class LabelInfoServiceImpl extends ServiceImpl<LabelInfoMapper, LabelInfo>
         implements LabelInfoService {
 
+    private final LabelInfoMapper labelInfoMapper;
+
+    @Override
+    public List<LabelInfo> getLabelInfoByRoomId(Long id) {
+
+        return labelInfoMapper.getLabelInfoByRoomId(id);
+    }
 }
 
 

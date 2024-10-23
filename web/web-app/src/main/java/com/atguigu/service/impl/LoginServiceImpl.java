@@ -14,8 +14,7 @@ import com.atguigu.utils.VerifyCodeUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import com.atguigu.service.UserInfoService;
@@ -32,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class LoginServiceImpl implements LoginService {
 
-    private final RedisTemplate redisTemplate;
+    private final StringRedisTemplate redisTemplate;
 
     private final SmsService smsService;
 
@@ -100,11 +99,12 @@ public class LoginServiceImpl implements LoginService {
             userInfo.setStatus(BaseStatus.ENABLE.getCode());
             userInfo.setNickname("用户-" + loginVo.getPhone().substring(6));
             userInfoService.save(userInfo);
-        }
+        } else {
+            //4.判断用户是否被禁
+            if (userInfo.getStatus().equals(BaseStatus.DISABLE)) {
+                throw new LeaseException(ResultCodeEnum.APP_ACCOUNT_DISABLED_ERROR);
+            }
 
-        //4.判断用户是否被禁
-        if (userInfo.getStatus().equals(BaseStatus.DISABLE)) {
-            throw new LeaseException(ResultCodeEnum.APP_ACCOUNT_DISABLED_ERROR);
         }
 
         //5.创建并返回TOKEN

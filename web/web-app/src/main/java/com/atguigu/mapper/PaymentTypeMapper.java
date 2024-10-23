@@ -2,6 +2,9 @@ package com.atguigu.mapper;
 
 import com.atguigu.entity.PaymentType;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author wf_wj
@@ -11,6 +14,13 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface PaymentTypeMapper extends BaseMapper<PaymentType> {
 
+    /**
+     * 根据房间id获取支付方式列表.
+     *
+     * @param id 房间id
+     * @return List<PaymentType> 支付方式列表
+     */
+    List<PaymentType> getPaymentTypeByRoomId(@Param("id") Long id);
 }
 
 
