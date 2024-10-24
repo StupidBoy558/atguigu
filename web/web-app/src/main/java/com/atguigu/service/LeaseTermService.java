@@ -14,9 +14,16 @@ public interface LeaseTermService extends IService<LeaseTerm> {
 
     /**
      * 根据房间id查询租期.
-     *
      * @param id 房间id
      * @return List<LeaseTerm> 租期列表
      */
     List<LeaseTerm> getLeaseTermByRoomId(Long id);
+
+    /**
+     * 根据房间id获取可选获取租期列表.
+     *
+     * @param id 房间id
+     * @return List<LeaseTerm> 租期列表
+     */
+    List<LeaseTerm> listByRoomId(Long id);
 }

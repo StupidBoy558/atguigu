@@ -34,17 +34,7 @@ public class PaymentTypeController {
     public ResponseData<List<PaymentType>> list(@RequestParam Long id) {
 
         log.info("根据房间id获取可选支付方式列表, id: {}", id);
-
-        LambdaQueryWrapper<RoomPaymentType> roomPaymentTypeWrapper = new LambdaQueryWrapper<>();
-        roomPaymentTypeWrapper.eq(RoomPaymentType::getRoomId, id);
-        List<RoomPaymentType> roomPaymentTypeList = roomPaymentTypeService.list(roomPaymentTypeWrapper);
-
-        List<Long> paymentIds = roomPaymentTypeList.stream()
-                .map(RoomPaymentType::getPaymentTypeId)
-                .toList();
-        LambdaQueryWrapper<PaymentType> paymentTypeWrapper = new LambdaQueryWrapper<>();
-        paymentTypeWrapper.in(PaymentType::getId, paymentIds);
-        List<PaymentType> paymentTypeList = paymentTypeService.list(paymentTypeWrapper);
+        List<PaymentType> paymentTypeList = paymentTypeService.getPaymentTypeByRoomId(id);
         return ResponseData.ok(paymentTypeList);
     }
 

@@ -1,9 +1,12 @@
 package com.atguigu.service;
 
 import com.atguigu.entity.LeaseAgreement;
+import com.atguigu.pojo.vo.agreement.AgreementDetailVo;
+import com.atguigu.pojo.vo.agreement.AgreementItemVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author wf_wj
@@ -19,4 +22,20 @@ public interface LeaseAgreementService extends IService<LeaseAgreement> {
      * @return BigDecimal 最小租金
      */
     BigDecimal getMinRentByApartmentId(Long id);
+
+    /**
+     * 根据用户id获取租约列表.
+     *
+     * @param username 用户phone
+     * @return List<AgreementItemVo>
+     */
+    List<AgreementItemVo> ListItemByPhone(String username);
+
+    /**
+     * 根据id获取租约详细信息.
+     *
+     * @param id 租约id
+     * @return AgreementDetailVo
+     */
+    AgreementDetailVo getDetailById(Long id);
 }

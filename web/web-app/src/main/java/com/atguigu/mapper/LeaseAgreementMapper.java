@@ -1,9 +1,12 @@
 package com.atguigu.mapper;
 
 import com.atguigu.entity.LeaseAgreement;
+import com.atguigu.pojo.vo.agreement.AgreementItemVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author wf_wj
@@ -20,6 +23,14 @@ public interface LeaseAgreementMapper extends BaseMapper<LeaseAgreement> {
      * @return BigDecimal 最小租金
      */
     BigDecimal getMinRentByApartmentId(Long id);
+
+    /**
+     * 根据用户id获取租约列表.
+     *
+     * @param username 用户phone
+     * @return List<AgreementItemVo>
+     */
+    List<AgreementItemVo> ListItemByPhone(@Param("phone") String username);
 }
 
 
