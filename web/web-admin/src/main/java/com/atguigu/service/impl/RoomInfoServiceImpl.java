@@ -1,5 +1,6 @@
 package com.atguigu.service.impl;
 
+import com.atguigu.config.RedisConstant;
 import com.atguigu.entity.GraphInfo;
 import com.atguigu.entity.RoomAttrValue;
 import com.atguigu.entity.RoomFacility;
@@ -46,6 +47,8 @@ import com.atguigu.service.RoomInfoService;
 import com.atguigu.mapper.RoomInfoMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.cache.CacheProperties;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -111,8 +114,21 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
      * 属性值Mapper.
      */
     private final AttrValueMapper attrValueMapper;
+
+    /**
+     * 支付方式Mapper.
+     */
     private final PaymentTypeMapper paymentTypeMapper;
+
+    /**
+     * 租期Mapper.
+     */
     private final LeaseAgreementMapper leaseAgreementMapper;
+
+    /**
+     * RedisTemplate.
+     */
+    private final RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 保存或更新房间的信息.
@@ -133,6 +149,9 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
         if (isUpdate) {
             removeExistingRelations(paramsId);
             saveRoomInfo(paramsId, params);
+            // 删除缓存
+            String key = RedisConstant.APP_LOGIN_PREFIX + params.getId();
+            redisTemplate.delete(key);
         } else {
             // 新增操作: 保存房间的关联关系
             saveRoomInfo(roomInfoNew.getId(), params);
@@ -232,6 +251,10 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
         log.info("根据id删除房间信息, params: {}", params);
         this.removeById(params.getId());
         removeExistingRelations(params.getId());
+
+        // 删除缓存
+        String key = RedisConstant.APP_LOGIN_PREFIX + params.getId();
+        redisTemplate.delete(key);
 
     }
 
