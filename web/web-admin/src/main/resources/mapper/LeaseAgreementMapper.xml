@@ -33,4 +33,90 @@
         status,source_type,additional_info,
         create_time,update_time,is_deleted
     </sql>
+
+    <select id="listByRoomId" resultType="com.atguigu.vo.leaseTerm.LeaseTermListVo">
+        select id, month_count, unit
+        from lease_term
+        where id in (select lease_term_id
+                     from room_lease_term
+                     where room_id = #{id}
+                       and is_deleted = 0)
+    </select>
+
+    <resultMap id="AgreementPageList" type="com.atguigu.vo.agreement.AgreementPageVo" autoMapping="true">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <association property="apartmentInfo" javaType="com.atguigu.vo.apartment.ApartmentItemVo" autoMapping="true">
+            <id property="id" column="apartment_id" jdbcType="BIGINT"/>
+        </association>
+        <association property="roomInfo" javaType="com.atguigu.vo.room.RoomInfoItemVo" autoMapping="true">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+        </association>
+        <association property="paymentType" javaType="com.atguigu.vo.paymentType.PaymentTypeSearchVo"
+                     autoMapping="true">
+            <id property="id" column="payment_type_id" jdbcType="BIGINT"/>
+        </association>
+        <association property="leaseTerm" javaType="com.atguigu.vo.leaseTerm.LeaseTermSearchVo" autoMapping="true">
+            <id property="id" column="lease_term_id" jdbcType="BIGINT"/>
+        </association>
+    </resultMap>
+
+    <select id="pageList" resultMap="AgreementPageList">
+        select la.id,
+        la.phone,
+        la.name,
+        la.identification_number,
+        la.lease_start_date,
+        la.lease_end_date,
+        la.rent,
+        la.deposit,
+        la.status,
+        la.source_type,
+        la.additional_info,
+        ai.id as apartment_id,
+        ai.name as apartment_name,
+        ai.district_id,
+        ai.district_name,
+        ai.city_id,
+        ai.city_name,
+        ai.province_id,
+        ai.province_name,
+        ri.id as room_id,
+        ri.room_number,
+        pt.id as payment_type_id,
+        pt.name as payment_type_name,
+        pt.pay_month_count,
+        lt.id as lease_term_id,
+        lt.month_count,
+        lt.unit
+        from lease_agreement as la
+        inner join apartment_info as ai on la.apartment_id = ai.id and ai.is_deleted = 0
+        left join room_info as ri on ai.id = ri.apartment_id and ri.is_deleted = 0
+        left join payment_type as pt on la.payment_type_id = pt.id and pt.is_deleted = 0
+        left join lease_term as lt on la.lease_term_id = lt.id and lt.is_deleted = 0
+        <where>
+            la.is_deleted = 0
+            <if test="params.provinceId != null and params.provinceId != '' ">
+                and ai.province_id = #{params.provinceId}
+            </if>
+            <if test="params.cityId != null and params.cityId != '' ">
+                and ai.city_id = #{params.cityId}
+            </if>
+            <if test="params.districtId != null and params.districtId != '' ">
+                and ai.district_id = #{params.districtId}
+            </if>
+            <if test="params.apartmentId != null and params.apartmentId != '' ">
+                and ai.id = #{params.apartmentId}
+            </if>
+            <if test="params.roomNumber != null and params.roomNumber != '' ">
+                and ri.room_number like concat('%',#{params.roomNumber},'%')
+            </if>
+            <if test="params.name != null and params.name != '' ">
+                and la.name like concat('%',#{params.name},'%')
+            </if>
+            <if test="params.phone != null and params.phone != '' ">
+                and la.phone like concat('%',#{params.phone},'%')
+            </if>
+        </where>
+
+    </select>
 </mapper>

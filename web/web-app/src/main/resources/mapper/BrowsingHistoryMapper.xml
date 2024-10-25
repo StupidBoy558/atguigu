@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.mapper.BrowsingHistoryMapper">
+
+    <resultMap id="BaseResultMap" type="com.atguigu.entity.BrowsingHistory">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="userId" column="user_id" jdbcType="BIGINT"/>
+        <result property="roomId" column="room_id" jdbcType="BIGINT"/>
+        <result property="browseTime" column="browse_time" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,user_id,room_id,
+        browse_time,create_time,update_time,
+        is_deleted
+    </sql>
+
+    <resultMap id="HistoryItemVoMap" type="com.atguigu.pojo.vo.history.HistoryItemVo" autoMapping="true">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="room_id" property="roomId" jdbcType="BIGINT"/>
+        <collection property="roomGraphVoList" ofType="com.atguigu.pojo.vo.graph.GraphVo"
+                    select="selectGraphListByRoomId" column="room_id"/>
+    </resultMap>
+
+    <select id="pageItem" resultMap="HistoryItemVoMap">
+        select bh.id,
+               bh.user_id,
+               bh.room_id,
+               bh.browse_time,
+               ri.room_number,
+               ri.rent,
+               ai.name as apartment_name,
+               ai.province_name,
+               ai.city_name,
+               ai.district_name
+        from browsing_history bh
+                 inner join room_info ri on bh.room_id = ri.id and ri.is_deleted = 0
+                 left join apartment_info ai on ri.apartment_id = ai.id and ai.is_deleted = 0
+        where bh.user_id = #{id}
+          and bh.is_deleted = 0
+        order by bh.browse_time desc
+    </select>
+
+    <select id="selectGraphListByRoomId" resultType="com.atguigu.pojo.vo.graph.GraphVo">
+        select name,
+               url
+        from graph_info
+        where item_id = #{room_id}
+          and is_deleted = 0
+          and item_type = 2
+    </select>
+</mapper>

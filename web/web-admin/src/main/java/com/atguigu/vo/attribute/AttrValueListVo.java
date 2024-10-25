@@ -35,4 +35,9 @@ public class AttrValueListVo extends BaseVo {
     @Schema(description = "属性key id")
     private Long attrKeyId;
 
+    /**
+     * 属性key名称.
+     */
+    @Schema(description = "属性key名称")
+    private String attrKeyName;
 }

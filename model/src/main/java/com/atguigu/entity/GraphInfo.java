@@ -1,9 +1,8 @@
 package com.atguigu.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.atguigu.enums.ItemType;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
@@ -29,7 +28,8 @@ public class GraphInfo implements Serializable {
     /**
      * 图片所属对象类型（1:apartment,2:room）
      */
-    private Integer itemType;
+    @TableField(value = "item_type")
+    private ItemType itemType;
 
     /**
      * 图片所有对象id

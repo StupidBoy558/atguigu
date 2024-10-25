@@ -19,4 +19,18 @@
         fee_key_id,create_time,update_time,
         is_deleted
     </sql>
+
+    <select id="selectFeeValueList" resultType="com.atguigu.vo.fees.FeeValueListVo">
+
+        select fv.id, fv.name, fv.unit, fk.name as fee_key_name, fk.id as fee_key_id
+        from fee_value fv
+                 left join fee_key fk on fv.fee_key_id = fk.id and fk.is_deleted = 0
+        where fv.is_deleted = 0
+          and fv.id in (select fee_value_id
+                        from apartment_fee_value
+                        where is_deleted = 0
+                          and apartment_id = #{id})
+
+
+    </select>
 </mapper>

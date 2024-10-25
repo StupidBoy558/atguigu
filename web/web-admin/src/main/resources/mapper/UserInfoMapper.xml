@@ -21,4 +21,23 @@
         avatar_url,nickname,status,
         create_time,update_time,is_deleted
     </sql>
+
+    <select id="pageList" resultType="com.atguigu.vo.user.UserInfoPageVo">
+        select id,
+        phone,
+        password,
+        avatar_url,
+        nickname,
+        status
+        from user_info
+        <where>
+            is_deleted = 0
+            <if test="params.phone != null and params.phone != ''">
+                and phone like concat('%', #{params.phone}, '%')
+            </if>
+            <if test="params.status != null and params.status != '' ">
+                and status = #{params.status}
+            </if>
+        </where>
+    </select>
 </mapper>

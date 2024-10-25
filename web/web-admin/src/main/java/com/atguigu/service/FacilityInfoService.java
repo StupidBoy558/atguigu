@@ -3,7 +3,7 @@ package com.atguigu.service;
 import com.atguigu.entity.FacilityInfo;
 import com.atguigu.params.facilityInfo.FacilityInfoListParams;
 import com.atguigu.params.facilityInfo.FacilityInfoPageParams;
-import com.atguigu.params.facilityInfo.FacilityInfoParams;
+import com.atguigu.params.facilityInfo.FacilityInfoSaveOrUpdateParams;
 import com.atguigu.vo.facilityInfo.FacilityInfoListVo;
 import com.atguigu.vo.facilityInfo.FacilityInfoPageVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -39,5 +39,5 @@ public interface FacilityInfoService extends IService<FacilityInfo> {
      * @param param 保存或更新请求体
      * @return 是否成功
      */
-    Boolean saveOrUpdateFacility(FacilityInfoParams param);
+    Boolean saveOrUpdateFacility(FacilityInfoSaveOrUpdateParams param);
 }

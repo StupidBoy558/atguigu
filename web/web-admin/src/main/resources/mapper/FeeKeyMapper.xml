@@ -16,4 +16,30 @@
         id,name,create_time,
         update_time,is_deleted
     </sql>
+
+
+    <resultMap id="FeeKeyListVo" type="com.atguigu.vo.fees.FeeKeyListVo">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <collection property="feeValueListDTO" ofType="com.atguigu.dto.FeeValueListDTO">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="unit" column="unit"/>
+            <result property="feeKeyId" column="feeKeyId"/>
+        </collection>
+    </resultMap>
+    <select id="feeInfoList" resultMap="FeeKeyListVo">
+
+        select k.id         as id,
+               k.name       as name,
+               v.id         as id,
+               v.name       as name,
+               v.unit       as unit,
+               v.fee_key_id as feeKeyId
+        from fee_key k
+                 left join fee_value v on k.id = v.fee_key_id and v.is_deleted = 0
+        where k.is_deleted = 0
+
+
+    </select>
 </mapper>

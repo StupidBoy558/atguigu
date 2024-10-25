@@ -20,4 +20,11 @@
         item_id,url,create_time,
         update_time,is_deleted
     </sql>
+    <select id="selectListByIdAndItem" resultType="com.atguigu.vo.apartment.GraphVo">
+        select name, url
+        from graph_info
+        where item_id = #{id}
+          and item_type = #{itemType}
+          and is_deleted = 0
+    </select>
 </mapper>

@@ -1,7 +1,10 @@
 package com.atguigu.service;
 
 import com.atguigu.entity.ProvinceInfo;
+import com.atguigu.vo.regionInfo.ProvinceInfoVo;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
 * @author wf_wj
@@ -10,4 +13,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface ProvinceInfoService extends IService<ProvinceInfo> {
 
+    /**
+     * 查询省份信息列表.
+     *
+     * @return 省份信息列表VO
+     */
+    List<ProvinceInfoVo> listProvince();
 }

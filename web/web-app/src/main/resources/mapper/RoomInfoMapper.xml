@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.mapper.RoomInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.atguigu.entity.RoomInfo">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="roomNumber" column="room_number" jdbcType="VARCHAR"/>
+        <result property="rent" column="rent" jdbcType="DECIMAL"/>
+        <result property="apartmentId" column="apartment_id" jdbcType="BIGINT"/>
+        <result property="isRelease" column="is_release" jdbcType="TINYINT"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,room_number,rent,
+        apartment_id,is_release,create_time,
+        update_time,is_deleted
+    </sql>
+
+    <resultMap id="RoomPageListMap" type="com.atguigu.pojo.vo.room.RoomItemVo" autoMapping="true">
+
+        <result property="id" column="id" jdbcType="BIGINT"/>
+
+        <association property="apartmentInfo" javaType="com.atguigu.entity.ApartmentInfo" autoMapping="true">
+            <id column="apartment_id" property="id"/>
+
+        </association>
+
+        <collection property="graphVoList" ofType="com.atguigu.pojo.vo.graph.GraphVo"
+                    select="selectGraphListByRoomId" column="id"/>
+
+        <collection property="labelInfoList" ofType="com.atguigu.entity.LabelInfo"
+                    select="selectLabelByRoomId" column="id"/>
+
+    </resultMap>
+
+    <select id="pageList" resultMap="RoomPageListMap">
+
+        select ri.id,
+        ri.room_number,
+        ri.rent,
+        ai.id as apartment_id,
+        ai.name,
+        ai.introduction,
+        ai.district_id,
+        ai.district_name,
+        ai.city_id,
+        ai.city_name,
+        ai.province_id,
+        ai.province_name,
+        ai.address_detail,
+        ai.latitude,
+        ai.longitude,
+        ai.phone,
+        ai.is_release
+        from room_info ri
+        left join apartment_info ai on ri.apartment_id = ai.id and ai.is_deleted = 0
+        <where>
+            ri.is_deleted = 0
+            and ri.is_release = 1
+            and ri.id not in (select room_id
+            from lease_agreement
+            where is_deleted = 0
+            and status in (2, 5))
+            <if test="params.provinceId != null and params.provinceId != '' ">
+                and ai.province_id = #{params.provinceId}
+            </if>
+            <if test="params.cityId != null and params.cityId != '' ">
+                and ai.city_id = #{params.cityId}
+            </if>
+            <if test="params.districtId != null and params.districtId != '' ">
+                and ai.district_id = #{params.districtId}
+            </if>
+            <if test="params.minRent != null and params.maxRent != null">
+                and (ri.rent &gt;= #{params.minRent} and ri.rent &lt;= #{params.maxRent})
+            </if>
+            <if test="params.paymentTypeId != null">
+                and ri.id in (
+                select
+                room_id
+                from room_payment_type
+                where is_deleted = 0
+                and payment_type_id = #{params.paymentTypeId}
+                )
+            </if>
+        </where>
+        <if test="params.orderType == 'desc' or params.orderType == 'asc'">
+            order by ri.rent ${params.orderType}
+        </if>
+    </select>
+    <!-- 根据房间ID查询图片列表 -->
+    <select id="selectGraphListByRoomId" resultType="com.atguigu.pojo.vo.graph.GraphVo">
+        select name,
+               url
+        from graph_info
+        where is_deleted = 0
+          and item_type = 2
+          and item_id = #{id}
+    </select>
+    <!-- 根据公寓ID查询标签列表 -->
+    <select id="selectLabelByRoomId" resultType="com.atguigu.entity.LabelInfo">
+        select id,
+               type,
+               name
+        from label_info
+        where is_deleted = 0
+          and id in (select label_id
+                     from room_label
+                     where is_deleted = 0
+                       and room_id = #{id})
+    </select>
+
+    <select id="pageListByApartmentId" resultMap="RoomPageListMap">
+        select ri.id,
+               ri.room_number,
+               ri.rent,
+               ai.id as apartment_id,
+               ai.name,
+               ai.introduction,
+               ai.district_id,
+               ai.district_name,
+               ai.city_id,
+               ai.city_name,
+               ai.province_id,
+               ai.province_name,
+               ai.address_detail,
+               ai.latitude,
+               ai.longitude,
+               ai.phone,
+               ai.is_release
+        from room_info ri
+                 left join apartment_info ai on ri.apartment_id = ai.id and ai.is_deleted = 0
+        where ri.apartment_id = #{id}
+          and ri.is_deleted = 0
+          and ri.is_release = 1
+          and ri.id not in (select room_id
+                            from lease_agreement
+                            where is_deleted = 0
+                              and status in (2, 5))
+    </select>
+</mapper>

@@ -1,7 +1,12 @@
 package com.atguigu.mapper;
 
 import com.atguigu.entity.RoomInfo;
+import com.atguigu.params.room.RoomPageItemParam;
+import com.atguigu.vo.room.RoomPageVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @author wf_wj
@@ -11,6 +16,15 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface RoomInfoMapper extends BaseMapper<RoomInfo> {
 
+    /**
+     * 根据条件分页查询房间列表.
+     *
+     * @param pageVoPage 分页参数
+     * @param params     房间的分页查询参数
+     * @return 房间分页列表
+     */
+    IPage<RoomPageVo> roomPageItem(
+            @Param("page") Page<RoomPageVo> pageVoPage, @Param("params") RoomPageItemParam params);
 }
 
 

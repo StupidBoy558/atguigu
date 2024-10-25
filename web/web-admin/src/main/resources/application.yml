@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://121.199.167.37:3306/lease?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2b8
+    url: jdbc:mysql://47.99.60.249:3306/lease?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2b8
     username: root
     password: 123456
     hikari:
@@ -15,6 +15,12 @@ spring:
       maximum-pool-size: 12 #连接池最大连接数，默认是10
       minimum-idle: 10 #最小空闲连接数量
       pool-name: SPHHikariPool # 连接池名称
+  data:
+    redis:
+      timeout: 10000
+      host: 47.99.60.249
+      port: 6379
+      database: 0
 
 #用于打印框架生成的sql语句，便于调试
 mybatis-plus:
@@ -26,3 +32,12 @@ mybatis-plus:
       logic-delete-field: is_deleted
       logic-not-delete-value: 0
       logic-delete-value: 1
+
+minio:
+  endpoint: http://47.99.60.249:9000
+  access-key: root
+  secret-key: Dansheng@2024
+  bucket-name: lease
+
+springdoc:
+  default-flat-param-object: true

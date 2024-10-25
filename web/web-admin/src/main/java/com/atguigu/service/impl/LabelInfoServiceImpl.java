@@ -7,6 +7,7 @@ import com.atguigu.params.labelInfo.LabelInfoListParam;
 import com.atguigu.params.labelInfo.LabelInfoSaveParam;
 import com.atguigu.params.labelInfo.LabelInfoUpdateParam;
 import com.atguigu.service.LabelInfoService;
+import com.atguigu.vo.BaseVo;
 import com.atguigu.vo.labelInfo.LabelInfoListVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -32,7 +33,7 @@ public class LabelInfoServiceImpl extends ServiceImpl<LabelInfoMapper, LabelInfo
         queryWrapper.eq(param.getType() != null && !param.getType().isEmpty(), LabelInfo::getType, param.getType());
         List<LabelInfo> labelInfoList = this.list(queryWrapper);
 
-        return LabelInfoListVo.convertToVoList(labelInfoList);
+        return BaseVo.convertToVoList(labelInfoList, LabelInfoListVo.class);
     }
 
     @Override
