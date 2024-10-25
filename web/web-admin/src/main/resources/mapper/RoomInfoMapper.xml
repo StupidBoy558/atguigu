@@ -20,4 +20,79 @@
         apartment_id,is_release,create_time,
         update_time,is_deleted
     </sql>
+
+    <resultMap id="RoomPageQuery" type="com.atguigu.vo.room.RoomPageVo" autoMapping="true">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="roomNumber" column="room_number" jdbcType="VARCHAR"/>
+        <result property="rent" column="rent" jdbcType="DECIMAL"/>
+        <result property="apartmentId" column="apartment_id" jdbcType="BIGINT"/>
+        <result property="isRelease" column="is_release" jdbcType="TINYINT"/>
+        <result property="leaseEndDate" column="LeasEndDate" jdbcType="TIMESTAMP"/>
+        <result property="isCheckIn" column="isCheckIn" jdbcType="TIMESTAMP"/>
+        <association property="apartmentItemVo" autoMapping="true" javaType="com.atguigu.vo.apartment.ApartmentItemVo">
+            <id property="id" column="apartmentId" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="introduction" column="introduction" jdbcType="VARCHAR"/>
+            <result property="districtId" column="districtId" jdbcType="BIGINT"/>
+            <result property="districtName" column="districtName" jdbcType="VARCHAR"/>
+            <result property="cityId" column="cityId" jdbcType="BIGINT"/>
+            <result property="cityName" column="cityName" jdbcType="VARCHAR"/>
+            <result property="provinceId" column="provinceId" jdbcType="BIGINT"/>
+            <result property="provinceName" column="provinceName" jdbcType="VARCHAR"/>
+            <result property="addressDetail" column="addressDetail" jdbcType="VARCHAR"/>
+            <result property="latitude" column="latitude" jdbcType="DECIMAL"/>
+            <result property="longitude" column="longitude" jdbcType="DECIMAL"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="isRelease" column="isRelease" jdbcType="TINYINT"/>
+        </association>
+    </resultMap>
+
+    <select id="roomPageItem" resultMap="RoomPageQuery">
+        select ri.id,
+        ri.room_number,
+        ri.rent,
+        ri.apartment_id,
+        ri.is_release,
+        la.lease_end_date as LeasEndDate,
+        case when la.id is null then 0 else 1 end as isCheckIn,
+        ai.id as apartmentId,
+        ai.name as name,
+        ai.introduction as introduction,
+        ai.district_id as districtId,
+        ai.district_name as districtName,
+        ai.city_id as cityId,
+        ai.city_name as cityName,
+        ai.province_id as provinceId,
+        ai.province_name as provinceName,
+        ai.address_detail as addressDetail,
+        ai.latitude as latitude,
+        ai.longitude as longitude,
+        ai.phone as phone,
+        ai.is_release as isRelease
+        from room_info ri
+        left join apartment_info ai
+        on ri.apartment_id = ai.id
+        and ai.is_deleted = 0
+        left join lease_agreement la
+        on ri.id = la.room_id
+        and la.status in (2, 5)
+        and la.is_deleted = 0
+        <where>
+            ri.is_deleted = 0
+            <if test="params.apartmentId != null">
+                and ri.apartment_id = #{params.apartmentId}
+            </if>
+            <if test="params.provinceId != null">
+                and ai.province_id = #{params.provinceId}
+            </if>
+            <if test="params.cityId != null">
+                and ai.city_id = #{params.cityId}
+            </if>
+            <if test="params.districtId != null">
+                and ai.district_id = #{params.districtId}
+            </if>
+        </where>
+
+
+    </select>
 </mapper>

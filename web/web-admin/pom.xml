@@ -18,7 +18,10 @@
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

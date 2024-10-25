@@ -2,7 +2,7 @@ package com.atguigu.service.impl;
 
 import com.atguigu.params.facilityInfo.FacilityInfoListParams;
 import com.atguigu.params.facilityInfo.FacilityInfoPageParams;
-import com.atguigu.params.facilityInfo.FacilityInfoParams;
+import com.atguigu.params.facilityInfo.FacilityInfoSaveOrUpdateParams;
 import com.atguigu.vo.facilityInfo.FacilityInfoListVo;
 import com.atguigu.vo.facilityInfo.FacilityInfoPageVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -87,10 +87,10 @@ public class FacilityInfoServiceImpl extends ServiceImpl
      * @return 是否成功
      */
     @Override
-    public Boolean saveOrUpdateFacility(final FacilityInfoParams param) {
+    public Boolean saveOrUpdateFacility(final FacilityInfoSaveOrUpdateParams param) {
 
         // 判断参数中的id值是否为空
-        FacilityInfo facility = FacilityInfoParams.convertToEntity(param);
+        FacilityInfo facility = FacilityInfoSaveOrUpdateParams.convertToEntity(param);
         if (param.getId() == null) {
             // 新增设施信息
             facility.setCreateTime(new Date());

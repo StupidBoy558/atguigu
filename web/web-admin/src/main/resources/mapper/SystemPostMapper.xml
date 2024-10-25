@@ -20,4 +20,9 @@
         description,status,create_time,
         update_time,is_deleted
     </sql>
+    <select id="pageList" resultType="com.atguigu.vo.system.SystemPostPageVo">
+        select id, code, name, description, status
+        from system_post
+        where is_deleted = 0
+    </select>
 </mapper>

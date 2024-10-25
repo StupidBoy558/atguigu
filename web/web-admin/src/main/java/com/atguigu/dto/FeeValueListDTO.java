@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
- * @Description:TODO
+ * @Description: 费用值列表响应体
  * @Author: dansheng
  * @CreateTime: 2024/9/24
  **/

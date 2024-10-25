@@ -1,6 +1,6 @@
 package com.atguigu.params.regionInfo;
 
-import com.atguigu.params.BaseParams;
+import com.atguigu.vo.BaseParams;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

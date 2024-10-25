@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.mapper.AttrValueMapper">
+
+    <resultMap id="BaseResultMap" type="com.atguigu.entity.AttrValue">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="attrKeyId" column="attr_key_id" jdbcType="BIGINT"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,name,attr_key_id,
+        create_time,update_time,is_deleted
+    </sql>
+
+    <select id="getAttrValueVoByRoomId" resultType="com.atguigu.pojo.vo.attr.AttrValueVo">
+        select av.id,
+               av.name,
+               av.attr_key_id,
+               ak.name as attr_key_name
+        from attr_value av
+                 left join attr_key ak on av.attr_key_id = ak.id and ak.is_deleted = 0
+        where av.is_deleted = 0
+          and av.id in (select attr_value_id
+                        from room_attr_value rav
+                        where rav.room_id = #{id}
+                          and is_deleted = 0)
+
+    </select>
+</mapper>

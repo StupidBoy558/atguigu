@@ -26,7 +26,7 @@ import java.util.List;
  * @CreateTime: 2024/9/22
  **/
 @Slf4j
-@Tag(name = "apartment/attribute", description = "房间的属性管理接口")
+@Tag(name = "房间属性管理", description = "房间属性管理")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin/attr")

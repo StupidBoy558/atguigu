@@ -1,5 +1,6 @@
 package com.atguigu.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -29,6 +30,7 @@ public class SystemUser implements Serializable {
     /**
      * 密码
      */
+    @TableField(value = "password", updateStrategy = FieldStrategy.NOT_EMPTY)
     private String password;
 
     /**
